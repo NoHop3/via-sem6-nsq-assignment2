@@ -1,0 +1,132 @@
+db.createCollection("customers", {
+   validator:{
+      $jsonSchema: {
+         bsonType: "object",
+         required: [ "customer_name", "customer_email", "customer_address" ],
+         properties: {
+            customer_name: {
+               bsonType: "string",
+               description: "Customer name, required, must be a string, minimum 10 characters, maximum 100 characters",
+               minimum: 10,
+               maximum: 100
+            },
+            customer_email: {
+               bsonType: "string",
+               description: "Customer email, required, must be a string, minimum 10 characters, maximum 200 characters",
+               minimum: 10,
+               maximum: 200,
+               uniqueItems: true
+            },
+            customer_phone: {
+               bsonType: "int",
+               description: "Customer phone, optional, must be an integer",
+            },
+            customer_address : {
+               bsonType: "string",
+               description: "Customer address, required, must be a string, minimum 10 characters, maximum 200 characters",
+               minimum: 10,
+               maximum: 200
+            }
+         }
+      }
+   }
+})
+
+db.createCollection("authors", {
+   validator: {
+      $jsonSchema: {
+         bsonType: "object",
+         required: ["author_name"],
+         properties: {
+            author_name: {
+               bsonType: "string",
+               description: "Author name, required, must be a string, minimum 10 characters, maximum 100 characters",
+               minimum: 10,
+               maximum: 100
+               },
+            }
+         }
+      }
+   }
+)
+
+
+db.createCollection("customers", {
+   validator: {
+      $jsonSchema: {
+         bsonType: "object",
+         required: [ "date", "time", "type", "performer", "seat", "price", "ticketHolder" ],
+         properties: {
+            date: {
+               bsonType: "string",
+               description: "format: yyyy-MM-dd"
+            },
+            time: {
+               bsonType: "string",
+               description: "format: hh:mm"
+            },
+            type: {
+               enum: ["Concert", "Lecture"]
+            },
+            musicalGenre: {
+               bsonType: "string"
+            },
+            performer: {
+               bsonType: "array",
+               minItems: 1,
+               uniqueItems: true,
+               items: { bsonType: "string" }
+            },
+            seat: {
+               bsonType: "object",
+               required: ["room"],
+               properties: {
+                  room: {
+                     enum: ["Store sal", "Lille sal", "Symfonisk sal", "Rytmisk sal"]
+                  },
+                  row: {
+                     bsonType: "int",
+                     minimum: 1,
+                     maximum: 48
+                  },
+                  seat: {
+                     bsonType: "int",
+                     minimum: 1,
+                     maximum: 78
+                  }
+               }
+            },
+            price: {
+               bsonType: "decimal",
+               description: "never double for monetary value"
+            },
+            ticketHolder: {
+               bsonType: "object",
+               required: [ "name", "address" ],
+               properties: {
+                  name: {
+                     bsonType: "string"
+                  },
+                  address: {
+                     bsonType: "object",
+                     required: [ "street", "town", "zip" ],
+                     properties: {
+                        street: {
+                           bsonType: "string",
+                        },
+                        zip: {
+                           bsonType: "int",
+                           minimum: 1000,
+                           maximum: 9999
+                        },
+                        town: {
+                           bsonType: "string",
+                        }
+                     }
+                  }
+                }
+             }
+         }
+      }
+   }
+ })
