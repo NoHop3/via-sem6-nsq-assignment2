@@ -5,6 +5,7 @@
 
 // Drop if collection exists
 db.customers.drop();
+
 db.createCollection("customers", {
    validator:{
       $jsonSchema: {
@@ -39,7 +40,9 @@ db.createCollection("customers", {
    }
 })
 
+// Drop if collection exists
 db.authors.drop();
+
 db.createCollection("authors", {
    validator: {
       $jsonSchema: {
@@ -58,7 +61,9 @@ db.createCollection("authors", {
    }
 )
 
+// Drop if collection exists
 db.genres.drop();
+
 db.createCollection("genres", {
    validator: {
       $jsonSchema: {
@@ -78,7 +83,9 @@ db.createCollection("genres", {
    }
 )
 
+// Drop if collection exists
 db.languages.drop();
+
 db.createCollection("languages", {
    validator: {
       $jsonSchema: {
@@ -98,7 +105,9 @@ db.createCollection("languages", {
    }
 )
 
+// Drop if collection exists
 db.characters.drop();
+
 db.createCollection("characters", {
    validator: {
       $jsonSchema: {
@@ -118,7 +127,9 @@ db.createCollection("characters", {
    }
 )
 
+// Drop if collection exists
 db.categories.drop();
+
 db.createCollection("categories", {
    validator: {
       $jsonSchema: {
@@ -159,7 +170,9 @@ db.createCollection("categories", {
    }
 )
 
+// Drop if collection exists
 db.books.drop();
+
 db.createCollection("books", {
    validator: {
       $jsonSchema: {
@@ -227,7 +240,9 @@ db.createCollection("books", {
    }
 )
 
+// Drop if collection exists
 db.orders.drop();
+
 db.createCollection("orders", {
    validator: {
       $jsonSchema: {
@@ -887,8 +902,6 @@ db.orders.insertMany([
     book_id: JSON.stringify(bookIds[10]),
   },
 ])
-
-
 
 //#endregion
 
