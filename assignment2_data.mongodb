@@ -33,19 +33,46 @@ db.customers.insertMany([
 
 db.authors.insertMany([
   {
-    author_name: "Trevor Jeffery",
+    author_name: "J.K. Rowling",
   },
   {
-    author_name: "Morten Spiegelhauer",
+    author_name: "Stephen King",
   },
   {
-    author_name: "Starr Sergeant",
+    author_name: "George R.R. Martin",
   },
   {
-    author_name: "Hans Jensen",
+    author_name: "Dan Brown",
   },
   {
-    author_name: "John Doe",
+    author_name: "J.D. Salinger",
+  },
+  {
+    author_name: "Jane Austen",
+  },
+  {
+    author_name: "William Shakespeare",
+  },
+  {
+    author_name: "Mark Twain",
+  },
+  {
+    author_name: "Ernest Hemingway",
+  },
+  {
+    author_name: "Charles Dickens",
+  },
+  {
+    author_name: "Stephenie Meyer",
+  },
+  {
+    author_name: "C.S. Lewis",
+  },
+  {
+    author_name: "Agatha Christie",
+  },
+  {
+    author_name: "John Grisham",
   }
 ])
 
