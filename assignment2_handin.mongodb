@@ -275,7 +275,8 @@ db.createCollection("orders", {
 )
 
 //#endregion
-
+let session = db.getMongo().startSession();
+session.startTransaction();
 //#region Assignment 2 inserting data
 let customerIds = db.customers.insertMany([
   {
@@ -897,7 +898,7 @@ db.orders.insertMany([
     book_id: JSON.stringify(bookIds[10]),
   },
 ])
-
+session.commitTransaction();
 //#endregion
 
 //#region Assignment 3 queries
