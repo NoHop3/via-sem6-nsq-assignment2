@@ -234,7 +234,8 @@ db.createCollection("books", {
                },      
             }
          }
-      }
+      },
+      validationAction: "warn"
    }
 )
 
@@ -275,10 +276,12 @@ db.createCollection("orders", {
 )
 
 //#endregion
+//#region Assignment 2 inserting data
+
 let session = db.getMongo().startSession();
 session.startTransaction();
-//#region Assignment 2 inserting data
-let customerIds = db.customers.insertMany([
+
+db.customers.insertMany([
   {
     customer_name: "Trevor Jeffery",
     customer_email: "trevor.jfr@gmail.com",
@@ -310,9 +313,8 @@ let customerIds = db.customers.insertMany([
     customer_address: "Kongensgade 2",
   }
 ]);
-customerIds = Object.values(customerIds.insertedIds);
 
-let authorIds = db.authors.insertMany([
+let authorsIds = db.authors.insertMany([
   {
     author_name: "J.K. Rowling",
   },
@@ -356,7 +358,7 @@ let authorIds = db.authors.insertMany([
     author_name: "John Grisham",
   }
 ])
-authorIds = Object.values(authorIds.insertedIds);
+authorsIds = Object.values(authorsIds.insertedIds);
 
 let genresIds = db.genres.insertMany([
   {
@@ -553,7 +555,6 @@ let languagesIds = db.languages.insertMany([
     language_name: "Latin",
   },
 ])
-languagesIds = Object.values(languagesIds.insertedIds);
 
 let characterIds = db.characters.insertMany([
   {
@@ -659,6 +660,21 @@ let categoriesIds = db.categories.insertMany([
   }
 ]);
 categoriesIds = Object.values(categoriesIds.insertedIds);
+
+db.books.insertOne({
+  book_name: "The Hobbit",
+  book_edition: "1st",
+  book_price: 10.99,
+  book_isAvailable: true,
+  book_author: JSON.stringify(authorsIds[0]),
+  book_category: JSON.stringify(categoriesIds[0]),
+  book_genre: JSON.stringify(genresIds[0]),
+  book_language: JSON.stringify(languagesIds[0]),
+  book_pages: 300,
+  book_ISBN: "978-3-16-148410-0",
+  book_copies: 222,
+  book_sales_count: 0,
+})
 
 let bookIds = db.books.insertMany([
   {
@@ -898,6 +914,7 @@ db.orders.insertMany([
     book_id: JSON.stringify(bookIds[10]),
   },
 ])
+
 session.commitTransaction();
 //#endregion
 
