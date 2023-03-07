@@ -1,4 +1,4 @@
-db.customers.insertMany([
+let customerIds = db.customers.insertMany([
   {
     customer_name: "Trevor Jeffery",
     customer_email: "trevor.jfr@gmail.com",
@@ -29,7 +29,7 @@ db.customers.insertMany([
     customer_phone: "12345678",
     customer_address: "Kongensgade 2",
   }
-])
+]).insertedIds
 
 let authorIds = db.authors.insertMany([
   {
@@ -74,9 +74,9 @@ let authorIds = db.authors.insertMany([
   {
     author_name: "John Grisham",
   }
-].map(author => author._id))
+]).insertedIds
 
-db.genres.insertMany([
+let genresIds = db.genres.insertMany([
   {
     genre_name: "Fantasy",
   },
@@ -218,7 +218,7 @@ db.genres.insertMany([
   {
     genre_name: "Mystery",
   }
-])
+]).insertedIds
 
 let languagesIds = db.languages.insertMany([
   {
@@ -269,7 +269,7 @@ let languagesIds = db.languages.insertMany([
   {
     language_name: "Latin",
   },
-].map((language) => {_id: language._id}))
+]).insertedIds
 
 let characterIds = db.characters.insertMany([
   {
@@ -314,96 +314,96 @@ let characterIds = db.characters.insertMany([
   {
     character_name: "Pirates",
   },
-].map(character => {_id: character._id} ));
+]).insertedIds;
 
 let categoriesIds = db.categories.insertMany([
   {
     category_name: "Fiction",
-    character_id: characterIds._id[0],
+    character_id: characterIds[0],
     subcategories: ["Fantasy", "Sci-Fi", "Fairy Tale"]
   },
   {
     category_name: "Non-Fiction",
-    character_id: characterIds._id[1],
+    character_id: characterIds[1],
     subcategories: ["Guide", "Travel", "Health"]
   },
   {
     category_name: "Poetry",
-    character_id: characterIds._id[2],
+    character_id: characterIds[2],
     subcategories: ["Poetry", "Folklore", "Mythology"]
   },
   {
     category_name: "Religious",
-    character_id: characterIds._id[3],
+    character_id: characterIds[3],
     subcategories: ["Religious", "Spiritual", "Prayer books"]
   },
   {
     category_name: "Biography",
-    character_id: characterIds._id[4],
+    character_id: characterIds[4],
     subcategories: ["Biography", "Autobiography", "Diaries"]
   },
   {
     category_name: "Encyclopedia",
-    character_id: characterIds._id[5],
+    character_id: characterIds[5],
     subcategories: ["Encyclopedia", "Dictionary", "Comics"]
   },
   {
     category_name: "Children's",
-    character_id: characterIds._id[6],
+    character_id: characterIds[6],
     subcategories: ["Children's", "Graphic Novel", "Series"]
   },
   {
     category_name: "Young Adult",
-    character_id: characterIds._id[7],
+    character_id: characterIds[7],
     subcategories: ["Young Adult", "Graphic Novel", "Series"]
   },
   {
     category_name: "Horror",
-    character_id: characterIds._id[8],
+    character_id: characterIds[8],
     subcategories: ["Horror", "Gothic", "Mystery"]
   },
   {
     category_name: "Science Fiction",
-    character_id: characterIds._id[9],
+    character_id: characterIds[9],
     subcategories: ["Sci-Fi", "Graphic Novel", "Short Story"]
   },
   {
     category_name: "Romance",
-    character_id: characterIds._id[10],
+    character_id: characterIds[10],
     subcategories: ["Romance", "Graphic Novel", "Short Story"]
   },
   {
     category_name: "Thriller",
-    character_id: characterIds._id[11],
+    character_id: characterIds[11],
     subcategories: ["Thriller", "Graphic Novel", "Short Story"]
   },
   {
     category_name: "Mystery",
-    character_id: characterIds._id[12],
+    character_id: characterIds[12],
     subcategories: ["Mystery", "Graphic Novel", "Short Story"]
   },
   {
     category_name: "Comedy",
-    character_id: characterIds._id[13],
+    character_id: characterIds[13],
     subcategories: ["Comedy", "Graphic Novel", "Short Story"]
   },
   {
     category_name: "Drama",
-    character_id: characterIds._id[14],
+    character_id: characterIds[14],
     subcategories: ["Drama", "Graphic Novel", "Short Story"]
   },
-].map(category => {_id: category._id} ));
+]).insertedIds;
 
-db.books.insertMany([
+let bookIds = db.books.insertMany([
   {
     book_name: "The Hobbit",
     book_edition: "1st",
     book_price: 10.99,
     book_isAvailable: true,
-    book_author: authorIds._id[0],
-    book_category: categoriesIds._id[0],
-    book_genre: genreIds._id[0],
-    book_language: languagesIds._id[0],
+    book_author: authorIds[0],
+    book_category: categoriesIds[0],
+    book_genre: genreIds[0],
+    book_language: languagesIds[0],
     book_pages: 300,
     book_ISBN: "978-3-16-148410-0",
     book_copies: 222,
@@ -414,10 +414,10 @@ db.books.insertMany([
     book_edition: "1st",
     book_price: 19.99,
     book_isAvailable: true,
-    book_author: authorIds._id[1],
-    book_category: categoriesIds._id[1],
-    book_genre: genreIds._id[1],
-    book_language: languagesIds._id[1],
+    book_author: authorIds[1],
+    book_category: categoriesIds[1],
+    book_genre: genreIds[1],
+    book_language: languagesIds[1],
     book_pages: 1332,
     book_ISBN: "978-3-16-148410-1",
     book_copies: 199,
@@ -428,10 +428,10 @@ db.books.insertMany([
     book_edition: "1st",
     book_price: 9.99,
     book_isAvailable: true,
-    book_author: authorIds._id[2],
-    book_category: categoriesIds._id[2],
-    book_genre: genreIds._id[2],
-    book_language: languagesIds._id[2],
+    book_author: authorIds[2],
+    book_category: categoriesIds[2],
+    book_genre: genreIds[2],
+    book_language: languagesIds[2],
     book_pages: 223,
     book_ISBN: "978-3-16-148410-2",
     book_copies: 222,
@@ -442,10 +442,10 @@ db.books.insertMany([
     book_edition: "1st",
     book_price: 9.99,
     book_isAvailable: true,
-    book_author: authorIds._id[2],
-    book_category: categoriesIds._id[3],
-    book_genre: genreIds._id[3],
-    book_language: languagesIds._id[3],
+    book_author: authorIds[2],
+    book_category: categoriesIds[3],
+    book_genre: genreIds[3],
+    book_language: languagesIds[3],
     book_pages: 251,
     book_ISBN: "978-3-16-148410-3",
     book_copies: 222,
@@ -456,10 +456,10 @@ db.books.insertMany([
     book_edition: "1st",
     book_price: 9.99,
     book_isAvailable: true,
-    book_author: authorIds._id[2],
-    book_category: categoriesIds._id[4],
-    book_genre: genreIds._id[4],
-    book_language: languagesIds._id[4],
+    book_author: authorIds[2],
+    book_category: categoriesIds[4],
+    book_genre: genreIds[4],
+    book_language: languagesIds[4],
     book_pages: 317,
     book_ISBN: "978-3-16-148410-4",
     book_copies: 222,
@@ -470,10 +470,10 @@ db.books.insertMany([
     book_edition: "1st",
     book_price: 9.99,
     book_isAvailable: true,
-    book_author: authorIds._id[2],
-    book_category: categoriesIds._id[5],
-    book_genre: genreIds._id[5],
-    book_language: languagesIds._id[5],
+    book_author: authorIds[2],
+    book_category: categoriesIds[5],
+    book_genre: genreIds[5],
+    book_language: languagesIds[5],
     book_pages: 636,
     book_ISBN: "978-3-16-148410-5",
     book_copies: 222,
@@ -483,10 +483,10 @@ db.books.insertMany([
     book_edition: "1st",
     book_price: 9.99,
     book_isAvailable: true,
-    book_author: authorIds._id[2],
-    book_category: categoriesIds._id[6],
-    book_genre: genreIds._id[6],
-    book_language: languagesIds._id[6],
+    book_author: authorIds[2],
+    book_category: categoriesIds[6],
+    book_genre: genreIds[6],
+    book_language: languagesIds[6],
     book_pages: 766,
     book_ISBN: "978-3-16-148410-6",
     book_copies: 222,
@@ -496,10 +496,10 @@ db.books.insertMany([
     book_edition: "1st",
     book_price: 9.99,
     book_isAvailable: true,
-    book_author: authorIds._id[2],
-    book_category: categoriesIds._id[7],
-    book_genre: genreIds._id[7],
-    book_language: languagesIds._id[7],
+    book_author: authorIds[2],
+    book_category: categoriesIds[7],
+    book_genre: genreIds[7],
+    book_language: languagesIds[7],
     book_pages: 607,
     book_ISBN: "978-3-16-148410-7",
     book_copies: 222,
@@ -509,10 +509,10 @@ db.books.insertMany([
     book_edition: "1st",
     book_price: 9.99,
     book_isAvailable: true,
-    book_author: authorIds._id[2],
-    book_category: categoriesIds._id[8],
-    book_genre: genreIds._id[8],
-    book_language: languagesIds._id[8],
+    book_author: authorIds[2],
+    book_category: categoriesIds[8],
+    book_genre: genreIds[8],
+    book_language: languagesIds[8],
     book_pages: 607,
     book_ISBN: "978-3-16-148410-8",
     book_copies: 222,
@@ -522,10 +522,10 @@ db.books.insertMany([
     book_edition: "1st",
     book_price: 9.99,
     book_isAvailable: true,
-    book_author: authorIds._id[3],
-    book_category: categoriesIds._id[9],
-    book_genre: genreIds._id[9],
-    book_language: languagesIds._id[9],
+    book_author: authorIds[3],
+    book_category: categoriesIds[9],
+    book_genre: genreIds[9],
+    book_language: languagesIds[9],
     book_pages: 96,
     book_ISBN: "978-3-16-148410-9",
     book_copies: 222,
@@ -535,12 +535,99 @@ db.books.insertMany([
     book_edition: "1st",
     book_price: 9.99,
     book_isAvailable: true,
-    book_author: authorIds._id[6],
-    book_category: categoriesIds._id[12],
-    book_genre: genreIds._id[12],
-    book_language: languagesIds._id[12],
+    book_author: authorIds[6],
+    book_category: categoriesIds[12],
+    book_genre: genreIds[12],
+    book_language: languagesIds[12],
     book_pages: 197,
     book_ISBN: "978-3-16-148411-2",
     book_copies: 222,
   }
+]).insertedIds
+
+db.orders.insertMany([
+  {
+    order_date: "2020-01-01",
+    order_price: 10.99,
+    book_quantity: 1,
+    customer_id: customerIds[0],
+    book_id: bookIds[0],
+  },
+  {
+    order_date: "2020-02-03",
+    order_price: 32.97,
+    book_quantity: 3,
+    customer_id: customerIds[1],
+    book_id: bookIds[0], 
+  },
+  {
+    order_date: "2020-03-05",
+    order_price: 19.99,
+    book_quantity: 1,
+    customer_id: customerIds[2],
+    book_id: bookIds[1],
+  },
+  {
+    order_date: "2020-04-07",
+    order_price: 9.99,
+    book_quantity: 1,
+    customer_id: customerIds[3],
+    book_id: bookIds[2],
+  },
+  {
+    order_date: "2020-05-09",
+    order_price: 9.99,
+    book_quantity: 1,
+    customer_id: customerIds[4],
+    book_id: bookIds[3],
+  },
+  {
+    order_date: "2020-06-11",
+    order_price: 9.99,
+    book_quantity: 1,
+    customer_id: customerIds[5],
+    book_id: bookIds[4],
+  },
+  {
+    order_date: "2020-07-13",
+    order_price: 9.99,
+    book_quantity: 1,
+    customer_id: customerIds[6],
+    book_id: bookIds[5],
+  },
+  {
+    order_date: "2020-08-15",
+    order_price: 9.99,
+    book_quantity: 1,
+    customer_id: customerIds[7],
+    book_id: bookIds[6],
+  },
+  {
+    order_date: "2020-09-17",
+    order_price: 9.99,
+    book_quantity: 1,
+    customer_id: customerIds[8],
+    book_id: bookIds[7],
+  },
+  {
+    order_date: "2020-10-19",
+    order_price: 9.99,
+    book_quantity: 1,
+    customer_id: customerIds[9],
+    book_id: bookIds[8],
+  },
+  {
+    order_date: "2020-11-21",
+    order_price: 9.99,
+    book_quantity: 1,
+    customer_id: customerIds[10],
+    book_id: bookIds[9],
+  },
+  {
+    order_date: "2020-12-23",
+    order_price: 9.99,
+    book_quantity: 1,
+    customer_id: customerIds[11],
+    book_id: bookIds[10],
+  },
 ])
