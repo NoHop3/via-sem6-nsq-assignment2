@@ -189,8 +189,8 @@ db.createCollection("books", {
                description: "Book edition, optional, must be a string",
             }, 
             book_price: {
-               bsonType: "decimal",
-               description: "Book price, required, must be a decimal, minimum 1 characters",
+               bsonType: "double",
+               description: "Book price, required, must be a double, minimum 1 characters",
                minimum: 1,
                },
             book_isAvailable: {
@@ -253,8 +253,8 @@ db.createCollection("orders", {
                description: "Order date, required, must be a string, minimum 10 characters, maximum 200 characters, format: yyyy-MM-dd",
             },
             order_price: {
-               bsonType: "decimal",
-               description: "Order price, optional, must be a decimal",
+               bsonType: "double",
+               description: "Order price, optional, must be a double",
                },
             book_quantity: {
                bsonType: "int",
@@ -675,6 +675,10 @@ db.books.insertOne({
   book_copies: 222,
   book_sales_count: 0,
 })
+
+db.adminCommand(
+   { getLog:'global'} ).log.forEach(x => { print(x) }
+)
 
 let bookIds = db.books.insertMany([
   {
