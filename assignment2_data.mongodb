@@ -82,6 +82,41 @@ db.languages.insertMany([
   },
   {
     language_name: "Spanish",
+  },
+  {
+    language_name: "Italian",
+  },
+  {
+    language_name: "Dutch",
+  },
+  {
+    language_name: "Norwegian",
+  },
+  {
+    language_name: "Swedish",
+  },
+  {
+    language_name: "Finnish",
+  },
+  {
+    language_name: "Japanese",
+  },
+  {
+    language_name: "Chinese",
+  },
+  {
+    language_name: "Russian",
+  },
+  {
+    language_name: "Arabic",
+  },
+  {
+    language_name: "Hebrew",
+  },
+  {
+    language_name: "Latin",
+  },
+])
   }
 ])
 
