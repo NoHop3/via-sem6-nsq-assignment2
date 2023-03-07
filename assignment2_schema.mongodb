@@ -118,7 +118,7 @@ db.createCollection("categories", {
          bsonType: "object",
          required: ["category_name"],
          properties: {
-            language_name: {
+            category_name: {
                bsonType: "string",
                description: "Language name, required, must be a string, minimum 10 characters, maximum 200 characters",
                minimum: 10,

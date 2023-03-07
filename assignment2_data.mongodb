@@ -271,10 +271,8 @@ db.languages.insertMany([
     language_name: "Latin",
   },
 ])
-  }
-])
 
-db.characters.insertMany([
+let characterIds = db.characters.insertMany([
   {
     character_name: "Aliens",
   },
@@ -316,5 +314,85 @@ db.characters.insertMany([
   },
   {
     character_name: "Pirates",
+  },
+].map((character) => {
+  return { _id: ObjectId() };
+}));
+
+db.categories.insertMany([
+  {
+    category_name: "Fiction",
+    character_id: characterIds._id[0],
+    subcategories: ["Fantasy", "Sci-Fi", "Fairy Tale"]
+  },
+  {
+    category_name: "Non-Fiction",
+    character_id: characterIds._id[1],
+    subcategories: ["Guide", "Travel", "Health"]
+  },
+  {
+    category_name: "Poetry",
+    character_id: characterIds._id[2],
+    subcategories: ["Poetry", "Folklore", "Mythology"]
+  },
+  {
+    category_name: "Religious",
+    character_id: characterIds._id[3],
+    subcategories: ["Religious", "Spiritual", "Prayer books"]
+  },
+  {
+    category_name: "Biography",
+    character_id: characterIds._id[4],
+    subcategories: ["Biography", "Autobiography", "Diaries"]
+  },
+  {
+    category_name: "Encyclopedia",
+    character_id: characterIds._id[5],
+    subcategories: ["Encyclopedia", "Dictionary", "Comics"]
+  },
+  {
+    category_name: "Children's",
+    character_id: characterIds._id[6],
+    subcategories: ["Children's", "Graphic Novel", "Series"]
+  },
+  {
+    category_name: "Young Adult",
+    character_id: characterIds._id[7],
+    subcategories: ["Young Adult", "Graphic Novel", "Series"]
+  },
+  {
+    category_name: "Horror",
+    character_id: characterIds._id[8],
+    subcategories: ["Horror", "Gothic", "Mystery"]
+  },
+  {
+    category_name: "Science Fiction",
+    character_id: characterIds._id[9],
+    subcategories: ["Sci-Fi", "Graphic Novel", "Short Story"]
+  },
+  {
+    category_name: "Romance",
+    character_id: characterIds._id[10],
+    subcategories: ["Romance", "Graphic Novel", "Short Story"]
+  },
+  {
+    category_name: "Thriller",
+    character_id: characterIds._id[11],
+    subcategories: ["Thriller", "Graphic Novel", "Short Story"]
+  },
+  {
+    category_name: "Mystery",
+    character_id: characterIds._id[12],
+    subcategories: ["Mystery", "Graphic Novel", "Short Story"]
+  },
+  {
+    category_name: "Comedy",
+    character_id: characterIds._id[13],
+    subcategories: ["Comedy", "Graphic Novel", "Short Story"]
+  },
+  {
+    category_name: "Drama",
+    character_id: characterIds._id[14],
+    subcategories: ["Drama", "Graphic Novel", "Short Story"]
   },
 ])
