@@ -144,8 +144,8 @@ db.createCollection("categories", {
                uniqueItems: true
             },
             character_id: {
-               bsonType: "int",
-               description: "Character id, must be an integer",
+               bsonType: "string",
+               description: "Character id, must be a string",
             },
             subcategories: {
                bsonType: "array",
@@ -181,39 +181,37 @@ db.createCollection("books", {
          properties: {
             book_name: {
                bsonType: "string",
-               description: "Book name, required, must be a string, minimum 10 characters, maximum 200 characters",
-               minimum: 10,
+               description: "Book name, required, must be a string, maximum 200 characters",
                maximum: 200
                },
             book_edition: {
-               bsonType: "int",
-               description: "Book edition, optional, must be an integer",
+               bsonType: "string",
+               description: "Book edition, optional, must be a string",
             }, 
             book_price: {
                bsonType: "decimal",
-               description: "Book price, required, must be a decimal, minimum 1 characters, maximum 10 characters",
+               description: "Book price, required, must be a decimal, minimum 1 characters",
                minimum: 1,
-               maximum: 10
                },
             book_isAvailable: {
                bsonType: "bool",
                description: "Book isAvailable, required, must be a bool",
                },
             book_author: {
-               bsonType: "int",
-               description: "Book author, required, must be an integer",
+               bsonType: "string",
+               description: "Book author, reference, required, must be a string",
                },
             book_category: {
-               bsonType: "int",
-               description: "Book category, required, must be an integer",
+               bsonType: "string",
+               description: "Book category, reference, required, must be a string",
                },
             book_genre: {
-               bsonType: "int",
-               description: "Book genre, required, must be an integer",
+               bsonType: "string",
+               description: "Book genre, reference, required, must be a string",
                },
             book_language: {
-               bsonType: "int",
-               description: "Book language, required, must be an integer",
+               bsonType: "string",
+               description: "Book language, reference, required, must be a string",
                },
             book_pages: {
                bsonType: "int",
@@ -255,7 +253,7 @@ db.createCollection("orders", {
             },
             order_price: {
                bsonType: "decimal",
-               description: "Order price, optional, must be a decimal, minimum 1 characters, maximum 10 characters",
+               description: "Order price, optional, must be a decimal",
                },
             book_quantity: {
                bsonType: "int",
@@ -263,12 +261,12 @@ db.createCollection("orders", {
                minimum: 1,
                },
             customer_id: {
-               bsonType: "int",
-               description: "Customer id, required, must be an integer, partial primary key",
+               bsonType: "string",
+               description: "Customer id, required, reference, must be an string, partial primary key",
                },
             book_id: {
-               bsonType: "int",
-               description: "Book id, required, must be an integer, partial primary key",
+               bsonType: "string",
+               description: "Book id, required, reference, must be an string, partial primary key",
                },   
             }   
          }
@@ -279,7 +277,6 @@ db.createCollection("orders", {
 //#endregion
 
 //#region Assignment 2 inserting data
-
 let customerIds = db.customers.insertMany([
   {
     customer_name: "Trevor Jeffery",
@@ -313,8 +310,6 @@ let customerIds = db.customers.insertMany([
   }
 ]);
 customerIds = Object.values(customerIds.insertedIds);
-customerIds.map((id) => {return id=JSON.stringify(id); });
-JSON.stringify(customerIds, null, 4);
 
 let authorIds = db.authors.insertMany([
   {
@@ -672,7 +667,7 @@ let bookIds = db.books.insertMany([
     book_isAvailable: true,
     book_author: JSON.stringify(authorIds[0]),
     book_category: JSON.stringify(categoriesIds[0]),
-    book_genre: JSON.stringify(genreIds[0]),
+    book_genre: JSON.stringify(genresIds[0]),
     book_language: JSON.stringify(languagesIds[0]),
     book_pages: 300,
     book_ISBN: "978-3-16-148410-0",
@@ -686,7 +681,7 @@ let bookIds = db.books.insertMany([
     book_isAvailable: true,
     book_author: JSON.stringify(authorIds[1]),
     book_category: JSON.stringify(categoriesIds[1]),
-    book_genre: JSON.stringify(genreIds[1]),
+    book_genre: JSON.stringify(genresIds[1]),
     book_language: JSON.stringify(languagesIds[1]),
     book_pages: 1332,
     book_ISBN: "978-3-16-148410-1",
@@ -700,7 +695,7 @@ let bookIds = db.books.insertMany([
     book_isAvailable: true,
     book_author: JSON.stringify(authorIds[2]),
     book_category: JSON.stringify(categoriesIds[2]),
-    book_genre: JSON.stringify(genreIds[2]),
+    book_genre: JSON.stringify(genresIds[2]),
     book_language: JSON.stringify(languagesIds[2]),
     book_pages: 223,
     book_ISBN: "978-3-16-148410-2",
@@ -714,7 +709,7 @@ let bookIds = db.books.insertMany([
     book_isAvailable: true,
     book_author: JSON.stringify(authorIds[2]),
     book_category: JSON.stringify(categoriesIds[3]),
-    book_genre: JSON.stringify(genreIds[3]),
+    book_genre: JSON.stringify(genresIds[3]),
     book_language: JSON.stringify(languagesIds[3]),
     book_pages: 251,
     book_ISBN: "978-3-16-148410-3",
@@ -728,7 +723,7 @@ let bookIds = db.books.insertMany([
     book_isAvailable: true,
     book_author: JSON.stringify(authorIds[2]),
     book_category: JSON.stringify(categoriesIds[4]),
-    book_genre: JSON.stringify(genreIds[4]),
+    book_genre: JSON.stringify(genresIds[4]),
     book_language: JSON.stringify(languagesIds[4]),
     book_pages: 317,
     book_ISBN: "978-3-16-148410-4",
@@ -742,7 +737,7 @@ let bookIds = db.books.insertMany([
     book_isAvailable: true,
     book_author: JSON.stringify(authorIds[2]),
     book_category: JSON.stringify(categoriesIds[5]),
-    book_genre: JSON.stringify(genreIds[5]),
+    book_genre: JSON.stringify(genresIds[5]),
     book_language: JSON.stringify(languagesIds[5]),
     book_pages: 636,
     book_ISBN: "978-3-16-148410-5",
@@ -755,7 +750,7 @@ let bookIds = db.books.insertMany([
     book_isAvailable: true,
     book_author: JSON.stringify(authorIds[2]),
     book_category: JSON.stringify(categoriesIds[6]),
-    book_genre: JSON.stringify(genreIds[6]),
+    book_genre: JSON.stringify(genresIds[6]),
     book_language: JSON.stringify(languagesIds[6]),
     book_pages: 766,
     book_ISBN: "978-3-16-148410-6",
@@ -768,7 +763,7 @@ let bookIds = db.books.insertMany([
     book_isAvailable: true,
     book_author: JSON.stringify(authorIds[2]),
     book_category: JSON.stringify(categoriesIds[7]),
-    book_genre: JSON.stringify(genreIds[7]),
+    book_genre: JSON.stringify(genresIds[7]),
     book_language: JSON.stringify(languagesIds[7]),
     book_pages: 607,
     book_ISBN: "978-3-16-148410-7",
@@ -781,7 +776,7 @@ let bookIds = db.books.insertMany([
     book_isAvailable: true,
     book_author: JSON.stringify(authorIds[2]),
     book_category: JSON.stringify(categoriesIds[8]),
-    book_genre: JSON.stringify(genreIds[8]),
+    book_genre: JSON.stringify(genresIds[8]),
     book_language: JSON.stringify(languagesIds[8]),
     book_pages: 607,
     book_ISBN: "978-3-16-148410-8",
@@ -794,7 +789,7 @@ let bookIds = db.books.insertMany([
     book_isAvailable: true,
     book_author: JSON.stringify(authorIds[3]),
     book_category: JSON.stringify(categoriesIds[9]),
-    book_genre: JSON.stringify(genreIds[9]),
+    book_genre: JSON.stringify(genresIds[9]),
     book_language: JSON.stringify(languagesIds[9]),
     book_pages: 96,
     book_ISBN: "978-3-16-148410-9",
@@ -807,7 +802,7 @@ let bookIds = db.books.insertMany([
     book_isAvailable: true,
     book_author: JSON.stringify(authorIds[6]),
     book_category: JSON.stringify(categoriesIds[12]),
-    book_genre: JSON.stringify(genreIds[12]),
+    book_genre: JSON.stringify(genresIds[12]),
     book_language: JSON.stringify(languagesIds[12]),
     book_pages: 197,
     book_ISBN: "978-3-16-148411-2",
