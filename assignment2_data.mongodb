@@ -30,3 +30,22 @@ db.customers.insertMany([
     customer_address: "Kongensgade 2",
   }
 ])
+
+db.authors.insertMany([
+  {
+    author_name: "Trevor Jeffery",
+  },
+  {
+    author_name: "Morten Spiegelhauer",
+  },
+  {
+    author_name: "Starr Sergeant",
+  },
+  {
+    author_name: "Hans Jensen",
+  },
+  {
+    author_name: "John Doe",
+  }
+])
+
