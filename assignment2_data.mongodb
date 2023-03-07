@@ -66,3 +66,21 @@ db.genres.insertMany([
     genre_name: "Thriller",
   }
 ])
+
+db.languages.insertMany([
+  {
+    language_name: "English",
+  },
+  {
+    language_name: "Danish",
+  },
+  {
+    language_name: "German",
+  },
+  {
+    language_name: "French",
+  },
+  {
+    language_name: "Spanish",
+  }
+])
