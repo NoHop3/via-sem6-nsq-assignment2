@@ -49,3 +49,20 @@ db.authors.insertMany([
   }
 ])
 
+db.genres.insertMany([
+  {
+    genre_name: "Fantasy",
+  },
+  {
+    genre_name: "Sci-Fi",
+  },
+  {
+    genre_name: "Horror",
+  },
+  {
+    genre_name: "Romance",
+  },
+  {
+    genre_name: "Thriller",
+  }
+])
