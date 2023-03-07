@@ -1,6 +1,3 @@
-// const db = 'assignment_2';
-// use(db);
-
 //#region Assignment 2 schema 
 
 // Drop if collection exists
@@ -281,7 +278,7 @@ db.createCollection("orders", {
 let session = db.getMongo().startSession();
 session.startTransaction();
 
-db.customers.insertMany([
+let customersIds = db.customers.insertMany([
   {
     customer_name: "Trevor Jeffery",
     customer_email: "trevor.jfr@gmail.com",
@@ -313,6 +310,7 @@ db.customers.insertMany([
     customer_address: "Kongensgade 2",
   }
 ]);
+customersIds = Object.values(customersIds.insertedIds);
 
 let authorsIds = db.authors.insertMany([
   {
@@ -555,6 +553,7 @@ let languagesIds = db.languages.insertMany([
     language_name: "Latin",
   },
 ])
+languagesIds = Object.values(languagesIds.insertedIds);
 
 let characterIds = db.characters.insertMany([
   {
@@ -661,24 +660,24 @@ let categoriesIds = db.categories.insertMany([
 ]);
 categoriesIds = Object.values(categoriesIds.insertedIds);
 
-db.books.insertOne({
-  book_name: "The Hobbit",
-  book_edition: "1st",
-  book_price: 10.99,
-  book_isAvailable: true,
-  book_author: JSON.stringify(authorsIds[0]),
-  book_category: JSON.stringify(categoriesIds[0]),
-  book_genre: JSON.stringify(genresIds[0]),
-  book_language: JSON.stringify(languagesIds[0]),
-  book_pages: 300,
-  book_ISBN: "978-3-16-148410-0",
-  book_copies: 222,
-  book_sales_count: 0,
-})
+// db.books.insertOne({
+//   book_name: "The Hobbit",
+//   book_edition: "1st",
+//   book_price: 10.99,
+//   book_isAvailable: true,
+//   book_author: JSON.stringify(authorsIds[0]),
+//   book_category: JSON.stringify(categoriesIds[0]),
+//   book_genre: JSON.stringify(genresIds[0]),
+//   book_language: JSON.stringify(languagesIds[0]),
+//   book_pages: 300,
+//   book_ISBN: "978-3-16-148410-0",
+//   book_copies: 222,
+//   book_sales_count: 0,
+// })
 
-db.adminCommand(
-   { getLog:'global'} ).log.forEach(x => { print(x) }
-)
+// db.adminCommand(
+//    { getLog:'global'} ).log.forEach(x => { print(x) }
+// )
 
 let bookIds = db.books.insertMany([
   {
@@ -686,7 +685,7 @@ let bookIds = db.books.insertMany([
     book_edition: "1st",
     book_price: 10.99,
     book_isAvailable: true,
-    book_author: JSON.stringify(authorIds[0]),
+    book_author: JSON.stringify(authorsIds[0]),
     book_category: JSON.stringify(categoriesIds[0]),
     book_genre: JSON.stringify(genresIds[0]),
     book_language: JSON.stringify(languagesIds[0]),
@@ -700,7 +699,7 @@ let bookIds = db.books.insertMany([
     book_edition: "1st",
     book_price: 19.99,
     book_isAvailable: true,
-    book_author: JSON.stringify(authorIds[1]),
+    book_author: JSON.stringify(authorsIds[1]),
     book_category: JSON.stringify(categoriesIds[1]),
     book_genre: JSON.stringify(genresIds[1]),
     book_language: JSON.stringify(languagesIds[1]),
@@ -714,7 +713,7 @@ let bookIds = db.books.insertMany([
     book_edition: "1st",
     book_price: 9.99,
     book_isAvailable: true,
-    book_author: JSON.stringify(authorIds[2]),
+    book_author: JSON.stringify(authorsIds[2]),
     book_category: JSON.stringify(categoriesIds[2]),
     book_genre: JSON.stringify(genresIds[2]),
     book_language: JSON.stringify(languagesIds[2]),
@@ -728,7 +727,7 @@ let bookIds = db.books.insertMany([
     book_edition: "1st",
     book_price: 9.99,
     book_isAvailable: true,
-    book_author: JSON.stringify(authorIds[2]),
+    book_author: JSON.stringify(authorsIds[2]),
     book_category: JSON.stringify(categoriesIds[3]),
     book_genre: JSON.stringify(genresIds[3]),
     book_language: JSON.stringify(languagesIds[3]),
@@ -742,7 +741,7 @@ let bookIds = db.books.insertMany([
     book_edition: "1st",
     book_price: 9.99,
     book_isAvailable: true,
-    book_author: JSON.stringify(authorIds[2]),
+    book_author: JSON.stringify(authorsIds[2]),
     book_category: JSON.stringify(categoriesIds[4]),
     book_genre: JSON.stringify(genresIds[4]),
     book_language: JSON.stringify(languagesIds[4]),
@@ -756,7 +755,7 @@ let bookIds = db.books.insertMany([
     book_edition: "1st",
     book_price: 9.99,
     book_isAvailable: true,
-    book_author: JSON.stringify(authorIds[2]),
+    book_author: JSON.stringify(authorsIds[2]),
     book_category: JSON.stringify(categoriesIds[5]),
     book_genre: JSON.stringify(genresIds[5]),
     book_language: JSON.stringify(languagesIds[5]),
@@ -769,7 +768,7 @@ let bookIds = db.books.insertMany([
     book_edition: "1st",
     book_price: 9.99,
     book_isAvailable: true,
-    book_author: JSON.stringify(authorIds[2]),
+    book_author: JSON.stringify(authorsIds[2]),
     book_category: JSON.stringify(categoriesIds[6]),
     book_genre: JSON.stringify(genresIds[6]),
     book_language: JSON.stringify(languagesIds[6]),
@@ -782,7 +781,7 @@ let bookIds = db.books.insertMany([
     book_edition: "1st",
     book_price: 9.99,
     book_isAvailable: true,
-    book_author: JSON.stringify(authorIds[2]),
+    book_author: JSON.stringify(authorsIds[2]),
     book_category: JSON.stringify(categoriesIds[7]),
     book_genre: JSON.stringify(genresIds[7]),
     book_language: JSON.stringify(languagesIds[7]),
@@ -795,7 +794,7 @@ let bookIds = db.books.insertMany([
     book_edition: "1st",
     book_price: 9.99,
     book_isAvailable: true,
-    book_author: JSON.stringify(authorIds[2]),
+    book_author: JSON.stringify(authorsIds[2]),
     book_category: JSON.stringify(categoriesIds[8]),
     book_genre: JSON.stringify(genresIds[8]),
     book_language: JSON.stringify(languagesIds[8]),
@@ -808,7 +807,7 @@ let bookIds = db.books.insertMany([
     book_edition: "1st",
     book_price: 9.99,
     book_isAvailable: true,
-    book_author: JSON.stringify(authorIds[3]),
+    book_author: JSON.stringify(authorsIds[3]),
     book_category: JSON.stringify(categoriesIds[9]),
     book_genre: JSON.stringify(genresIds[9]),
     book_language: JSON.stringify(languagesIds[9]),
@@ -821,7 +820,7 @@ let bookIds = db.books.insertMany([
     book_edition: "1st",
     book_price: 9.99,
     book_isAvailable: true,
-    book_author: JSON.stringify(authorIds[6]),
+    book_author: JSON.stringify(authorsIds[6]),
     book_category: JSON.stringify(categoriesIds[12]),
     book_genre: JSON.stringify(genresIds[12]),
     book_language: JSON.stringify(languagesIds[12]),
@@ -830,92 +829,92 @@ let bookIds = db.books.insertMany([
     book_copies: 222,
   }
 ]);
-bookIds = Object.values(bookIds.insertedIds);
+booksIds = Object.values(booksIds.insertedIds);
 
 db.orders.insertMany([
   {
     order_date: "2020-01-01",
     order_price: 10.99,
     book_quantity: 1,
-    customer_id: JSON.stringify(customerIds[0]),
-    book_id: JSON.stringify(bookIds[0]),
+    customer_id: JSON.stringify(customersIds[0]),
+    book_id: JSON.stringify(booksIds[0]),
   },
   {
     order_date: "2020-02-03",
     order_price: 32.97,
     book_quantity: 3,
-    customer_id: JSON.stringify(customerIds[1]),
-    book_id: JSON.stringify(bookIds[0],) 
+    customer_id: JSON.stringify(customersIds[1]),
+    book_id: JSON.stringify(booksIds[0],) 
   },
   {
     order_date: "2020-03-05",
     order_price: 19.99,
     book_quantity: 1,
-    customer_id: JSON.stringify(customerIds[2]),
-    book_id: JSON.stringify(bookIds[1]),
+    customer_id: JSON.stringify(customersIds[2]),
+    book_id: JSON.stringify(booksIds[1]),
   },
   {
     order_date: "2020-04-07",
     order_price: 9.99,
     book_quantity: 1,
-    customer_id: JSON.stringify(customerIds[3]),
-    book_id: JSON.stringify(bookIds[2]),
+    customer_id: JSON.stringify(customersIds[3]),
+    book_id: JSON.stringify(booksIds[2]),
   },
   {
     order_date: "2020-05-09",
     order_price: 9.99,
     book_quantity: 1,
-    customer_id: JSON.stringify(customerIds[4]),
-    book_id: JSON.stringify(bookIds[3]),
+    customer_id: JSON.stringify(customersIds[4]),
+    book_id: JSON.stringify(booksIds[3]),
   },
   {
     order_date: "2020-06-11",
     order_price: 9.99,
     book_quantity: 1,
-    customer_id: JSON.stringify(customerIds[5]),
-    book_id: JSON.stringify(bookIds[4]),
+    customer_id: JSON.stringify(customersIds[5]),
+    book_id: JSON.stringify(booksIds[4]),
   },
   {
     order_date: "2020-07-13",
     order_price: 9.99,
     book_quantity: 1,
-    customer_id: JSON.stringify(customerIds[6]),
-    book_id: JSON.stringify(bookIds[5]),
+    customer_id: JSON.stringify(customersIds[6]),
+    book_id: JSON.stringify(booksIds[5]),
   },
   {
     order_date: "2020-08-15",
     order_price: 9.99,
     book_quantity: 1,
-    customer_id: JSON.stringify(customerIds[7]),
-    book_id: JSON.stringify(bookIds[6]),
+    customer_id: JSON.stringify(customersIds[7]),
+    book_id: JSON.stringify(booksIds[6]),
   },
   {
     order_date: "2020-09-17",
     order_price: 9.99,
     book_quantity: 1,
-    customer_id: JSON.stringify(customerIds[8]),
-    book_id: JSON.stringify(bookIds[7]),
+    customer_id: JSON.stringify(customersIds[8]),
+    book_id: JSON.stringify(booksIds[7]),
   },
   {
     order_date: "2020-10-19",
     order_price: 9.99,
     book_quantity: 1,
-    customer_id: JSON.stringify(customerIds[9]),
-    book_id: JSON.stringify(bookIds[8]),
+    customer_id: JSON.stringify(customersIds[9]),
+    book_id: JSON.stringify(booksIds[8]),
   },
   {
     order_date: "2020-11-21",
     order_price: 9.99,
     book_quantity: 1,
-    customer_id: JSON.stringify(customerIds[10]),
-    book_id: JSON.stringify(bookIds[9]),
+    customer_id: JSON.stringify(customersIds[10]),
+    book_id: JSON.stringify(booksIds[9]),
   },
   {
     order_date: "2020-12-23",
     order_price: 9.99,
     book_quantity: 1,
-    customer_id: JSON.stringify(customerIds[11]),
-    book_id: JSON.stringify(bookIds[10]),
+    customer_id: JSON.stringify(customersIds[11]),
+    book_id: JSON.stringify(booksIds[10]),
   },
 ])
 
