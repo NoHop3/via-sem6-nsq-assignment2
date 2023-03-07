@@ -199,8 +199,10 @@ db.createCollection("books", {
                description: "Book pages, required, must be an integer",
                },
             book_ISBN: {
-               bsonType: "int",
-               description: "Book ISBN, optional, must be an integer",
+               bsonType: "string",
+               description: "Book ISBN, optional, must be a string, minimum 10 characters, maximum 200 characters",
+               minimum: 10,
+               maximum: 200,
                uniqueItems: true
                },  
             book_copies: {

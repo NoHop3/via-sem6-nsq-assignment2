@@ -31,7 +31,7 @@ db.customers.insertMany([
   }
 ])
 
-db.authors.insertMany([
+let authorIds = db.authors.insertMany([
   {
     author_name: "J.K. Rowling",
   },
@@ -74,7 +74,7 @@ db.authors.insertMany([
   {
     author_name: "John Grisham",
   }
-])
+].map(author => author._id))
 
 db.genres.insertMany([
   {
@@ -217,11 +217,10 @@ db.genres.insertMany([
   },
   {
     genre_name: "Mystery",
-  },
   }
 ])
 
-db.languages.insertMany([
+let languagesIds = db.languages.insertMany([
   {
     language_name: "English",
   },
@@ -270,7 +269,7 @@ db.languages.insertMany([
   {
     language_name: "Latin",
   },
-])
+].map((language) => {_id: language._id}))
 
 let characterIds = db.characters.insertMany([
   {
@@ -315,11 +314,9 @@ let characterIds = db.characters.insertMany([
   {
     character_name: "Pirates",
   },
-].map((character) => {
-  return { _id: ObjectId() };
-}));
+].map(character => {_id: character._id} ));
 
-db.categories.insertMany([
+let categoriesIds = db.categories.insertMany([
   {
     category_name: "Fiction",
     character_id: characterIds._id[0],
@@ -395,4 +392,155 @@ db.categories.insertMany([
     character_id: characterIds._id[14],
     subcategories: ["Drama", "Graphic Novel", "Short Story"]
   },
+].map(category => {_id: category._id} ));
+
+db.books.insertMany([
+  {
+    book_name: "The Hobbit",
+    book_edition: "1st",
+    book_price: 10.99,
+    book_isAvailable: true,
+    book_author: authorIds._id[0],
+    book_category: categoriesIds._id[0],
+    book_genre: genreIds._id[0],
+    book_language: languagesIds._id[0],
+    book_pages: 300,
+    book_ISBN: "978-3-16-148410-0",
+    book_copies: 222,
+    book_sales_count: 0,
+  },
+  {
+    book_name: "The Lord of the Rings",
+    book_edition: "1st",
+    book_price: 19.99,
+    book_isAvailable: true,
+    book_author: authorIds._id[1],
+    book_category: categoriesIds._id[1],
+    book_genre: genreIds._id[1],
+    book_language: languagesIds._id[1],
+    book_pages: 1332,
+    book_ISBN: "978-3-16-148410-1",
+    book_copies: 199,
+    book_sales_count: 0,
+  },
+  {
+    book_name: "Harry Potter and the Philosopher's Stone",
+    book_edition: "1st",
+    book_price: 9.99,
+    book_isAvailable: true,
+    book_author: authorIds._id[2],
+    book_category: categoriesIds._id[2],
+    book_genre: genreIds._id[2],
+    book_language: languagesIds._id[2],
+    book_pages: 223,
+    book_ISBN: "978-3-16-148410-2",
+    book_copies: 222,
+    book_sales_count: 0,
+  },
+  {
+    book_name: "Harry Potter and the Chamber of Secrets",
+    book_edition: "1st",
+    book_price: 9.99,
+    book_isAvailable: true,
+    book_author: authorIds._id[2],
+    book_category: categoriesIds._id[3],
+    book_genre: genreIds._id[3],
+    book_language: languagesIds._id[3],
+    book_pages: 251,
+    book_ISBN: "978-3-16-148410-3",
+    book_copies: 222,
+    book_sales_count: 0,
+  },
+  {
+    book_name: "Harry Potter and the Prisoner of Azkaban",
+    book_edition: "1st",
+    book_price: 9.99,
+    book_isAvailable: true,
+    book_author: authorIds._id[2],
+    book_category: categoriesIds._id[4],
+    book_genre: genreIds._id[4],
+    book_language: languagesIds._id[4],
+    book_pages: 317,
+    book_ISBN: "978-3-16-148410-4",
+    book_copies: 222,
+    book_sales_count: 0,
+  },
+  {
+    book_name: "Harry Potter and the Goblet of Fire",
+    book_edition: "1st",
+    book_price: 9.99,
+    book_isAvailable: true,
+    book_author: authorIds._id[2],
+    book_category: categoriesIds._id[5],
+    book_genre: genreIds._id[5],
+    book_language: languagesIds._id[5],
+    book_pages: 636,
+    book_ISBN: "978-3-16-148410-5",
+    book_copies: 222,
+  },
+  {
+    book_name: "Harry Potter and the Order of the Phoenix",
+    book_edition: "1st",
+    book_price: 9.99,
+    book_isAvailable: true,
+    book_author: authorIds._id[2],
+    book_category: categoriesIds._id[6],
+    book_genre: genreIds._id[6],
+    book_language: languagesIds._id[6],
+    book_pages: 766,
+    book_ISBN: "978-3-16-148410-6",
+    book_copies: 222,
+  },
+  {
+    book_name: "Harry Potter and the Half-Blood Prince",
+    book_edition: "1st",
+    book_price: 9.99,
+    book_isAvailable: true,
+    book_author: authorIds._id[2],
+    book_category: categoriesIds._id[7],
+    book_genre: genreIds._id[7],
+    book_language: languagesIds._id[7],
+    book_pages: 607,
+    book_ISBN: "978-3-16-148410-7",
+    book_copies: 222,
+  },
+  {
+    book_name: "Harry Potter and the Deathly Hallows",
+    book_edition: "1st",
+    book_price: 9.99,
+    book_isAvailable: true,
+    book_author: authorIds._id[2],
+    book_category: categoriesIds._id[8],
+    book_genre: genreIds._id[8],
+    book_language: languagesIds._id[8],
+    book_pages: 607,
+    book_ISBN: "978-3-16-148410-8",
+    book_copies: 222,
+  },
+  {
+    book_name: "The Little Prince",
+    book_edition: "1st",
+    book_price: 9.99,
+    book_isAvailable: true,
+    book_author: authorIds._id[3],
+    book_category: categoriesIds._id[9],
+    book_genre: genreIds._id[9],
+    book_language: languagesIds._id[9],
+    book_pages: 96,
+    book_ISBN: "978-3-16-148410-9",
+    book_copies: 222,
+  },
+  {
+    book_name: "The Alchemist",
+    book_edition: "1st",
+    book_price: 9.99,
+    book_isAvailable: true,
+    book_author: authorIds._id[6],
+    book_category: categoriesIds._id[12],
+    book_genre: genreIds._id[12],
+    book_language: languagesIds._id[12],
+    book_pages: 197,
+    book_ISBN: "978-3-16-148411-2",
+    book_copies: 222,
+  }
 ])
