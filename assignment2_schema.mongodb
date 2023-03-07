@@ -50,83 +50,197 @@ db.createCollection("authors", {
    }
 )
 
-
-db.createCollection("customers", {
+db.createCollection("genres", {
    validator: {
       $jsonSchema: {
          bsonType: "object",
-         required: [ "date", "time", "type", "performer", "seat", "price", "ticketHolder" ],
+         required: ["genre_name"],
          properties: {
-            date: {
+            genre_name: {
                bsonType: "string",
-               description: "format: yyyy-MM-dd"
-            },
-            time: {
-               bsonType: "string",
-               description: "format: hh:mm"
-            },
-            type: {
-               enum: ["Concert", "Lecture"]
-            },
-            musicalGenre: {
-               bsonType: "string"
-            },
-            performer: {
-               bsonType: "array",
-               minItems: 1,
-               uniqueItems: true,
-               items: { bsonType: "string" }
-            },
-            seat: {
-               bsonType: "object",
-               required: ["room"],
-               properties: {
-                  room: {
-                     enum: ["Store sal", "Lille sal", "Symfonisk sal", "Rytmisk sal"]
-                  },
-                  row: {
-                     bsonType: "int",
-                     minimum: 1,
-                     maximum: 48
-                  },
-                  seat: {
-                     bsonType: "int",
-                     minimum: 1,
-                     maximum: 78
-                  }
-               }
-            },
-            price: {
-               bsonType: "decimal",
-               description: "never double for monetary value"
-            },
-            ticketHolder: {
-               bsonType: "object",
-               required: [ "name", "address" ],
-               properties: {
-                  name: {
-                     bsonType: "string"
-                  },
-                  address: {
-                     bsonType: "object",
-                     required: [ "street", "town", "zip" ],
-                     properties: {
-                        street: {
-                           bsonType: "string",
-                        },
-                        zip: {
-                           bsonType: "int",
-                           minimum: 1000,
-                           maximum: 9999
-                        },
-                        town: {
-                           bsonType: "string",
-                        }
-                     }
-                  }
-                }
-             }
+               description: "Genre name, required, must be a string, minimum 10 characters, maximum 200 characters",
+               minimum: 10,
+               maximum: 200,
+               uniqueItems: true
+               },
+            }
          }
       }
    }
- })
+)
+
+db.createCollection("languages", {
+   validator: {
+      $jsonSchema: {
+         bsonType: "object",
+         required: ["language_name"],
+         properties: {
+            language_name: {
+               bsonType: "string",
+               description: "Language name, required, must be a string, minimum 10 characters, maximum 200 characters",
+               minimum: 10,
+               maximum: 200,
+               uniqueItems: true
+               },
+            }
+         }
+      }
+   }
+)
+
+db.createCollection("characters", {
+   validator: {
+      $jsonSchema: {
+         bsonType: "object",
+         required: ["character_name"],
+         properties: {
+            character_name: {
+               bsonType: "string",
+               description: "Character name, required, must be a string, minimum 10 characters, maximum 200 characters",
+               minimum: 10,
+               maximum: 200,
+               uniqueItems: true
+               },
+            }
+         }
+      }
+   }
+)
+
+db.createCollection("categories", {
+   validator: {
+      $jsonSchema: {
+         bsonType: "object",
+         required: ["category_name"],
+         properties: {
+            language_name: {
+               bsonType: "string",
+               description: "Language name, required, must be a string, minimum 10 characters, maximum 200 characters",
+               minimum: 10,
+               maximum: 200,
+               uniqueItems: true
+               },
+            },
+            character_id: {
+               bsonType: "int",
+               description: "Character id, must be an integer",
+            },
+            subcategories: {
+               bsonType: "array",
+               description: "Subcategories, optional, must be an array",
+               items: {
+                  bsonType: "object",
+                  required: ["subcategory_name"],
+                  properties: {
+                     subcategory_name: {
+                        bsonType: "string",
+                        description: "Subcategory name, required, must be a string, minimum 10 characters, maximum 200 characters",
+                        minimum: 10,
+                        maximum: 200
+                        uniqueItems: true
+                     },
+                  }
+               }
+            }
+         }
+      }
+   }
+)
+
+db.createCollection("books", {
+   validator: {
+      $jsonSchema: {
+         bsonType: "object",
+         required: ["book_name", "book_price", "book_isAvailable", "book_author", "book_category", "book_genre", "book_language", "book_pages"],
+         properties: {
+            book_name: {
+               bsonType: "string",
+               description: "Book name, required, must be a string, minimum 10 characters, maximum 200 characters",
+               minimum: 10,
+               maximum: 200
+               },
+            book_edition: {
+               bsonType: "int",
+               description: "Book edition, optional, must be an integer",
+            }, 
+            book_price: {
+               bsonType: "decimal",
+               description: "Book price, required, must be a decimal, minimum 1 characters, maximum 10 characters",
+               minimum: 1,
+               maximum: 10
+               },
+            book_isAvailable: {
+               bsonType: "bool",
+               description: "Book isAvailable, required, must be a bool",
+               },
+            book_author: {
+               bsonType: "int",
+               description: "Book author, required, must be an integer",
+               },
+            book_category: {
+               bsonType: "int",
+               description: "Book category, required, must be an integer",
+               },
+            book_genre: {
+               bsonType: "int",
+               description: "Book genre, required, must be an integer",
+               },
+            book_language: {
+               bsonType: "int",
+               description: "Book language, required, must be an integer",
+               },
+            book_pages: {
+               bsonType: "int",
+               description: "Book pages, required, must be an integer",
+               },
+            book_ISBN: {
+               bsonType: "int",
+               description: "Book ISBN, optional, must be an integer",
+               uniqueItems: true
+               },  
+            book_copies: {
+               bsonType: "int",
+               description: "Book copies, optional, must be an integer",
+               },
+            book_sales_count: {
+               bsonType: "int",
+               description: "Book sales count, optional, must be an integer",
+               },      
+            }
+         }
+      }
+   }
+)
+
+db.createCollection("orders", {
+   validator: {
+      $jsonSchema: {
+         bsonType: "object",
+         required: ["order_date", "customer_id", "book_id", "book_quantity"],
+         properties: {
+            order_date: {
+               bsonType: "string",
+               description: "Order date, required, must be a string, minimum 10 characters, maximum 200 characters, format: yyyy-MM-dd",
+            },
+            order_price: {
+               bsonType: "decimal",
+               description: "Order price, optional, must be a decimal, minimum 1 characters, maximum 10 characters",
+               },
+            book_quantity: {
+               bsonType: "int",
+               description: "Book quantity, optional, must be an integer",
+               minimum: 1,
+               },
+            customer_id: {
+               bsonType: "int",
+               description: "Customer id, required, must be an integer, partial primary key",
+               },
+            book_id: {
+               bsonType: "int",
+               description: "Book id, required, must be an integer, partial primary key",
+               },   
+            }   
+         }
+      }
+   }
+)
