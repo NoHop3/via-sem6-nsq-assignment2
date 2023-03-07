@@ -1,87 +1,32 @@
-  db.tickets.insertMany([
+db.customers.insertMany([
   {
-    date: "2020-03-03",
-    time: "19:30",
-    type: "Concert",
-    musicalGenre: "Classical",
-    performer: ["Anne Sofie Sloth Nilausen"],
-    seat: {room: "Lille sal"},
-    price: NumberDecimal("55"),
-    ticketHolder: {
-      name: "Kaylee Roderick",
-      address: {
-        street: "Frederiksgade 44",
-        zip: NumberInt(8000),
-        town: "Aarhus C"
-      }
-    }
+    customer_name: "Trevor Jeffery",
+    customer_email: "trevor.jfr@gmail.com",
+    customer_phone: "12345678",
+    customer_address: "Kattesund 12",
   },
   {
-    date: "2020-03-03",
-    time: "19:30",
-    type: "Concert",
-    musicalGenre: "Classical",
-    performer: ["Anne Sofie Sloth Nilausen"],
-    seat: {room: "Lille sal"},
-    price: NumberDecimal("55"),
-    ticketHolder: {
-      name: "Trevor Jeffery",
-      address: {
-        street: "Kattesund 12",
-        zip: NumberInt(8700),
-        town: "Horsens"
-      }
-    }
+    customer_name: "Morten Spiegelhauer",
+    customer_email: "morten.spg@gmail.com",
+    customer_phone: "12345678",
+    customer_address: "Løvenørnsgade 18",
   },
   {
-    date: "2020-03-04",
-    time: "19:00",
-    type: "Lecture",
-    title: "Skattesagen",
-    performer: ["Morten Spiegelhauer"],
-    seat: {room: "Lille sal", row: NumberInt(11), number: NumberInt(18)},
-    price: NumberDecimal("150"),
-    ticketHolder: {
-      name: "Edna Durant",
-      address: {
-        street: "Løvenørnsgade 18",
-        zip: NumberInt(8700),
-        town: "Horsens"
-      }
-    }
+    customer_name: "Starr Sergeant",
+    customer_email: "starr.stg@gmail.com",
+    customer_phone: "12345678",
+    customer_address: "Grønnegade 10",
   },
   {
-    date: "2020-03-04",
-    time: "19:00",
-    type: "Lecture",
-    title: "Skattesagen",
-    performer: ["Morten Spiegelhauer"],
-    seat: {room: "Lille sal", row: NumberInt(3), number: NumberInt(8)},
-    price: NumberDecimal("230"),
-    ticketHolder: {
-      name: "Damian Beringer",
-      address: {
-        street: "Løvenørnsgade 18",
-        zip: NumberInt(8700),
-        town: "Horsens"
-      }
-    }
+    customer_name: "Hans Jensen",
+    customer_email: "hans.jns@gmail.com",
+    customer_phone: "12345678",
+    customer_address: "Kongensgade 1",
   },
   {
-    date: "2020-03-04",
-    time: "19:00",
-    type: "Lecture",
-    title: "Skattesagen",
-    performer: ["Morten Spiegelhauer"],
-    seat: {room: "Lille sal", row: NumberInt(6), number: NumberInt(18)},
-    price: NumberDecimal("190"),
-    ticketHolder: {
-      name: "Starr Sergeant",
-      address: {
-        street: "Grønnegade 10",
-        zip: NumberInt(8000),
-        town: "Aarhus C"
-      }
-    }
-  },
+    customer_name: "John Doe",
+    customer_email: "john.doe@gmail.com",
+    customer_phone: "12345678",
+    customer_address: "Kongensgade 2",
+  }
 ])

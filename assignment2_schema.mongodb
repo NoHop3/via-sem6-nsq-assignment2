@@ -1,3 +1,8 @@
+const db = 'assignment_2';
+use(db);
+
+//#region Assignment 2 schema 
+
 db.createCollection("customers", {
    validator:{
       $jsonSchema: {
@@ -244,3 +249,98 @@ db.createCollection("orders", {
       }
    }
 )
+
+//#endregion
+
+//#region Assignment 2 inserting data
+db.customers.insertMany([
+  {
+    date: "2020-03-03",
+    time: "19:30",
+    type: "Concert",
+    musicalGenre: "Classical",
+    performer: ["Anne Sofie Sloth Nilausen"],
+    seat: {room: "Lille sal"},
+    price: NumberDecimal("55"),
+    ticketHolder: {
+      name: "Kaylee Roderick",
+      address: {
+        street: "Frederiksgade 44",
+        zip: NumberInt(8000),
+        town: "Aarhus C"
+      }
+    }
+  },
+  {
+    date: "2020-03-03",
+    time: "19:30",
+    type: "Concert",
+    musicalGenre: "Classical",
+    performer: ["Anne Sofie Sloth Nilausen"],
+    seat: {room: "Lille sal"},
+    price: NumberDecimal("55"),
+    ticketHolder: {
+      name: "Trevor Jeffery",
+      address: {
+        street: "Kattesund 12",
+        zip: NumberInt(8700),
+        town: "Horsens"
+      }
+    }
+  },
+  {
+    date: "2020-03-04",
+    time: "19:00",
+    type: "Lecture",
+    title: "Skattesagen",
+    performer: ["Morten Spiegelhauer"],
+    seat: {room: "Lille sal", row: NumberInt(11), number: NumberInt(18)},
+    price: NumberDecimal("150"),
+    ticketHolder: {
+      name: "Edna Durant",
+      address: {
+        street: "Løvenørnsgade 18",
+        zip: NumberInt(8700),
+        town: "Horsens"
+      }
+    }
+  },
+  {
+    date: "2020-03-04",
+    time: "19:00",
+    type: "Lecture",
+    title: "Skattesagen",
+    performer: ["Morten Spiegelhauer"],
+    seat: {room: "Lille sal", row: NumberInt(3), number: NumberInt(8)},
+    price: NumberDecimal("230"),
+    ticketHolder: {
+      name: "Damian Beringer",
+      address: {
+        street: "Løvenørnsgade 18",
+        zip: NumberInt(8700),
+        town: "Horsens"
+      }
+    }
+  },
+  {
+    date: "2020-03-04",
+    time: "19:00",
+    type: "Lecture",
+    title: "Skattesagen",
+    performer: ["Morten Spiegelhauer"],
+    seat: {room: "Lille sal", row: NumberInt(6), number: NumberInt(18)},
+    price: NumberDecimal("190"),
+    ticketHolder: {
+      name: "Starr Sergeant",
+      address: {
+        street: "Grønnegade 10",
+        zip: NumberInt(8000),
+        town: "Aarhus C"
+      }
+    }
+  },
+])
+console.log("🚀 ~ file: assignment2_schema.mongodb:343 ~ tickets:", tickets)
+
+
+//#endregion
