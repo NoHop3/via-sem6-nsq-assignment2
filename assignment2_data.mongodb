@@ -64,6 +64,133 @@ db.genres.insertMany([
   },
   {
     genre_name: "Thriller",
+  },
+  {
+    genre_name: "Mystery",
+  },
+  {
+    genre_name: "Comedy",
+  },
+  {
+    genre_name: "Drama",
+  },
+  {
+    genre_name: "Action",
+  },
+  {
+    genre_name: "Adventure",
+  },
+  {
+    genre_name: "Crime",
+  },
+  {
+    genre_name: "Historical",
+  },
+  {
+    genre_name: "Historical Fiction",
+  },
+  {
+    genre_name: "Graphic Novel",
+  },
+  {
+    genre_name: "Short Story",
+  },
+  {
+    genre_name: "Personal",
+  },
+  {
+    genre_name: "Encyclopedic",
+  },
+  {
+    genre_name: "Guide",
+  },
+  {
+    genre_name: "Travel",
+  },
+  {
+    genre_name: "Children's",
+  },
+  {
+    genre_name: "Religious",
+  },
+  {
+    genre_name: "Spiritual",
+  },
+  {
+    genre_name: "Health",
+  },
+  {
+    genre_name: "Math",
+  },
+  {
+    genre_name: "Anthology",
+  },
+  {
+    genre_name: "Poetry",
+  },
+  {
+    genre_name: "Encyclopedia",
+  },
+  {
+    genre_name: "Dictionary",
+  },
+  {
+    genre_name: "Comics",
+  },
+  {
+    genre_name: "Art",
+  },
+  {
+    genre_name: "Cookbooks",
+  },
+  {
+    genre_name: "Diaries",
+  },
+  {
+    genre_name: "Journals",
+  },
+  {
+    genre_name: "Prayer books",
+  },
+  {
+    genre_name: "Series",
+  },
+  {
+    genre_name: "Trilogy",
+  },
+  {
+    genre_name: "Biography",
+  },
+  {
+    genre_name: "Autobiography",
+  },
+  {
+    genre_name: "Fantasy",
+  },
+  {
+    genre_name: "Fairy Tale",
+  },
+  {
+    genre_name: "Mythology",
+  },
+  {
+    genre_name: "Legend",
+  },
+  {
+    genre_name: "Saga",
+  },
+  {
+    genre_name: "Folklore",
+  },
+  {
+    genre_name: "Horror",
+  },
+  {
+    genre_name: "Gothic",
+  },
+  {
+    genre_name: "Mystery",
+  },
   }
 ])
 
