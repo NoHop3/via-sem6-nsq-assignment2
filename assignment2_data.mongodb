@@ -84,3 +84,48 @@ db.languages.insertMany([
     language_name: "Spanish",
   }
 ])
+
+db.characters.insertMany([
+  {
+    character_name: "Aliens",
+  },
+  {
+    character_name: "Vampires",
+  },
+  {
+    character_name: "Werewolves",
+  },
+  {
+    character_name: "Zombies",
+  },
+  {
+    character_name: "Demons",
+  },
+  {
+    character_name: "Angels",
+  },
+  {
+    character_name: "Dragons",
+  },
+  {
+    character_name: "Witches",
+  },
+  {
+    character_name: "Wizards",
+  },
+  {
+    character_name: "Mages",
+  },
+  {
+    character_name: "Necromancers",
+  },
+  {
+    character_name: "Warlocks",
+  },
+  {
+    character_name: "Sorcerers",
+  },
+  {
+    character_name: "Pirates",
+  },
+])
