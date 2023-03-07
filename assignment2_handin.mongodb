@@ -1,8 +1,10 @@
-const db = 'assignment_2';
-use(db);
+// const db = 'assignment_2';
+// use(db);
 
 //#region Assignment 2 schema 
 
+// Drop if collection exists
+db.customers.drop();
 db.createCollection("customers", {
    validator:{
       $jsonSchema: {
@@ -37,6 +39,7 @@ db.createCollection("customers", {
    }
 })
 
+db.authors.drop();
 db.createCollection("authors", {
    validator: {
       $jsonSchema: {
@@ -55,6 +58,7 @@ db.createCollection("authors", {
    }
 )
 
+db.genres.drop();
 db.createCollection("genres", {
    validator: {
       $jsonSchema: {
@@ -74,6 +78,7 @@ db.createCollection("genres", {
    }
 )
 
+db.languages.drop();
 db.createCollection("languages", {
    validator: {
       $jsonSchema: {
@@ -93,6 +98,7 @@ db.createCollection("languages", {
    }
 )
 
+db.characters.drop();
 db.createCollection("characters", {
    validator: {
       $jsonSchema: {
@@ -112,6 +118,7 @@ db.createCollection("characters", {
    }
 )
 
+db.categories.drop();
 db.createCollection("categories", {
    validator: {
       $jsonSchema: {
@@ -124,7 +131,6 @@ db.createCollection("categories", {
                minimum: 10,
                maximum: 200,
                uniqueItems: true
-               },
             },
             character_id: {
                bsonType: "int",
@@ -141,17 +147,19 @@ db.createCollection("categories", {
                         bsonType: "string",
                         description: "Subcategory name, required, must be a string, minimum 10 characters, maximum 200 characters",
                         minimum: 10,
-                        maximum: 200
+                        maximum: 200,
                         uniqueItems: true
-                     },
+                    },
                   }
-               }
+                }
+              }
             }
          }
       }
    }
 )
 
+db.books.drop();
 db.createCollection("books", {
    validator: {
       $jsonSchema: {
@@ -219,6 +227,7 @@ db.createCollection("books", {
    }
 )
 
+db.orders.drop();
 db.createCollection("orders", {
    validator: {
       $jsonSchema: {
@@ -260,34 +269,35 @@ let customerIds = db.customers.insertMany([
   {
     customer_name: "Trevor Jeffery",
     customer_email: "trevor.jfr@gmail.com",
-    customer_phone: "12345678",
+    customer_phone: 1234567890,
     customer_address: "Kattesund 12",
   },
   {
     customer_name: "Morten Spiegelhauer",
     customer_email: "morten.spg@gmail.com",
-    customer_phone: "12345678",
+    customer_phone: 1234567890,
     customer_address: "Løvenørnsgade 18",
   },
   {
     customer_name: "Starr Sergeant",
     customer_email: "starr.stg@gmail.com",
-    customer_phone: "12345678",
+    customer_phone: 1234567890,
     customer_address: "Grønnegade 10",
   },
   {
     customer_name: "Hans Jensen",
     customer_email: "hans.jns@gmail.com",
-    customer_phone: "12345678",
+    customer_phone: 1234567890,
     customer_address: "Kongensgade 1",
   },
   {
     customer_name: "John Doe",
     customer_email: "john.doe@gmail.com",
-    customer_phone: "12345678",
+    customer_phone: 1234567890,
     customer_address: "Kongensgade 2",
   }
-]).insertedIds
+]);
+customerIds = Object.values(customerIds.insertedIds);
 
 let authorIds = db.authors.insertMany([
   {
@@ -332,7 +342,8 @@ let authorIds = db.authors.insertMany([
   {
     author_name: "John Grisham",
   }
-]).insertedIds
+])
+authorIds = Object.values(authorIds.insertedIds);
 
 let genresIds = db.genres.insertMany([
   {
@@ -476,7 +487,8 @@ let genresIds = db.genres.insertMany([
   {
     genre_name: "Mystery",
   }
-]).insertedIds
+])
+genresIds = Object.values(genresIds.insertedIds);
 
 let languagesIds = db.languages.insertMany([
   {
@@ -527,7 +539,8 @@ let languagesIds = db.languages.insertMany([
   {
     language_name: "Latin",
   },
-]).insertedIds
+])
+languagesIds = Object.values(languagesIds.insertedIds);
 
 let characterIds = db.characters.insertMany([
   {
@@ -572,85 +585,67 @@ let characterIds = db.characters.insertMany([
   {
     character_name: "Pirates",
   },
-]).insertedIds;
+]);
+characterIds = Object.values(characterIds.insertedIds);
 
 let categoriesIds = db.categories.insertMany([
   {
     category_name: "Fiction",
     character_id: characterIds[0],
-    subcategories: ["Fantasy", "Sci-Fi", "Fairy Tale"]
+    subcategories: [{subcategory_name:"Fantasy"}, {subcategory_name:"Sci-Fi"}, {subcategory_name:"Fairy Tale"}]
   },
   {
     category_name: "Non-Fiction",
     character_id: characterIds[1],
-    subcategories: ["Guide", "Travel", "Health"]
+    subcategories: [{subcategory_name:"Biography"}, {subcategory_name:"Autobiography"}, {subcategory_name:"History"}]
   },
   {
     category_name: "Poetry",
     character_id: characterIds[2],
-    subcategories: ["Poetry", "Folklore", "Mythology"]
+    subcategories: [{subcategory_name:"Poetry"}, {subcategory_name:"Lyrics"}, {subcategory_name:"Limericks"}]
+  },
+  {
+    category_name: "Reference",
+    character_id: characterIds[3],
+    subcategories: [{subcategory_name:"Dictionaries"}, {subcategory_name:"Encyclopedias"}, {subcategory_name:"Almanacs"}]
+  },
+  {
+    category_name: "Textbooks",
+    character_id: characterIds[4],
+    subcategories: [{subcategory_name:"Science"}, {subcategory_name:"Math"}, {subcategory_name:"Geography"}]
+  },
+  {
+    category_name: "Childrens",
+    character_id: characterIds[5],
+    subcategories: [{subcategory_name:"Picture Books"}, {subcategory_name:"Middle Grade"}, {subcategory_name:"Young Adult"}]
   },
   {
     category_name: "Religious",
-    character_id: characterIds[3],
-    subcategories: ["Religious", "Spiritual", "Prayer books"]
-  },
-  {
-    category_name: "Biography",
-    character_id: characterIds[4],
-    subcategories: ["Biography", "Autobiography", "Diaries"]
-  },
-  {
-    category_name: "Encyclopedia",
-    character_id: characterIds[5],
-    subcategories: ["Encyclopedia", "Dictionary", "Comics"]
-  },
-  {
-    category_name: "Children's",
     character_id: characterIds[6],
-    subcategories: ["Children's", "Graphic Novel", "Series"]
+    subcategories: [{subcategory_name:"Bibles"}, {subcategory_name:"Religious Texts"}, {subcategory_name:"Religious Studies"}]
   },
   {
-    category_name: "Young Adult",
+    category_name: "Cookbooks",
     character_id: characterIds[7],
-    subcategories: ["Young Adult", "Graphic Novel", "Series"]
+    subcategories: [{subcategory_name:"Baking"}, {subcategory_name:"Canning"}, {subcategory_name:"Casserole"}]
   },
   {
-    category_name: "Horror",
+    category_name: "Dictionaries",
     character_id: characterIds[8],
-    subcategories: ["Horror", "Gothic", "Mystery"]
+    subcategories: [{subcategory_name:"English"}, {subcategory_name:"Spanish"}, {subcategory_name:"French"}]
   },
   {
-    category_name: "Science Fiction",
+    category_name: "Comics",
     character_id: characterIds[9],
-    subcategories: ["Sci-Fi", "Graphic Novel", "Short Story"]
+    subcategories: [{subcategory_name:"Graphic Novels"}, {subcategory_name:"Manga"}, {subcategory_name:"Anime"}]
   },
   {
-    category_name: "Romance",
+    category_name: "Art",
     character_id: characterIds[10],
-    subcategories: ["Romance", "Graphic Novel", "Short Story"]
-  },
-  {
-    category_name: "Thriller",
-    character_id: characterIds[11],
-    subcategories: ["Thriller", "Graphic Novel", "Short Story"]
-  },
-  {
-    category_name: "Mystery",
-    character_id: characterIds[12],
-    subcategories: ["Mystery", "Graphic Novel", "Short Story"]
-  },
-  {
-    category_name: "Comedy",
-    character_id: characterIds[13],
-    subcategories: ["Comedy", "Graphic Novel", "Short Story"]
-  },
-  {
-    category_name: "Drama",
-    character_id: characterIds[14],
-    subcategories: ["Drama", "Graphic Novel", "Short Story"]
-  },
-]).insertedIds;
+    subcategories: [{subcategory_name:"Painting"}, {subcategory_name:"Sculpting"}, {subcategory_name:"Drawing"}]
+  }
+]);
+categoriesIds = Object.values(categoriesIds.insertedIds);
 
 let bookIds = db.books.insertMany([
   {
@@ -801,7 +796,8 @@ let bookIds = db.books.insertMany([
     book_ISBN: "978-3-16-148411-2",
     book_copies: 222,
   }
-]).insertedIds
+]);
+bookIds = Object.values(bookIds.insertedIds);
 
 db.orders.insertMany([
   {
