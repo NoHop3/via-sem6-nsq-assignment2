@@ -4,3 +4,4 @@
 ### Part 2 - Create json validation schema for Assignment 2
 ### Part 3 - Insert data using said validation schema
 ### Part 4 - Queries & aggregation of data.
+### Part 5 - Cloud
