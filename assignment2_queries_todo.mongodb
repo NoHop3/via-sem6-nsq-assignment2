@@ -1,45 +1,40 @@
-//1. Show blogs
-db.blogs.find().limit(3)
+//#region Working with data
+const validCustomerId = ObjectId("64075404aefb4493a358f042");
+const validBookId = ObjectId("64075404aefb4493a358f0af");
+const validAuthorId = ObjectId("64075404aefb4493a358f0b0");
+const validGenreId = 
 
-//2. Show blogs with no comments
-db.blogs.find({comments: []}).limit(3)
+//#region Modifying data  
+// 1.	Sell a book to a customer.
+db.orders.insertOne({
+    order_date: "2020-12-23",
+    order_price: 9.99,
+    book_quantity: 1,
+    customer_id: JSON.stringify(customersIds[2]),
+    book_id: JSON.stringify(booksIds[10]),
+})
+// 2.	Change the address of a customer.
+// 3.	Add an existing author to a book.
+// 4.	Retire the "Space Opera" category and assign all books from that category to the parent category. Don't assume you know the id of the parent category.
+// 5.	Sell 3 copies of one book and 2 of another in a single order
+//#endregion
 
-//3. Which users have never commented?
-db.blogs.find({"user.numberOfComments": 0}).limit(3)
+//#region Querying data
+// Write find() or aggregate() statements to return the following data
+// 1.	All books by an author
+// 2.	Total price of an order
+// 3.	Total sales (in £) to a customer
+// 4.	Books that are categorized as neither fiction nor non-fiction
+// 5.	Average page count by genre
+// 6.	Categories that have no sub-categories
+// 7.	ISBN numbers of books with more than one author
+// 8.	ISBN numbers of books that sold at least X copies (you decide the value for X)
+// 9.	Number of copies of each book sold – unsold books should show as 0 sold copies.
+// 10.	Best-selling books: The top 10 selling books ordered in descending order by number of sales.
+// 11.	Best-selling genres: The top 3 selling genres ordered in descending order by number of sales.
+// 12.	All science fiction books. Note: Books in science fiction subcategories like cyberpunk also count as science fiction. Don’t use your knowledge of the concrete category structure. (Hint: $graphLookup)
+// 13.	Characters used in science fiction books. Note from (12) applies here as well.
+// 14.	For each category: Number of books in the category including books in its subcategories.
+//#endregion
 
-//4. Which users have commented more than twice?
-db.blogs.find({"user.numberOfComments": {$gt: 2}}).limit(3)
-
-//5. Find blog posts by user "thecrowd"
-db.blogs.find({"user.username": "thecrowd"}).limit(3)
-
-//6.	How many blog posts has user "myattention" posted?
-db.blogs.find({"user.username": "myattention"}).size()
-
-//7.	Which blog posts are tagged with "field" and nothing else?
-db.blogs.find({tags: ["field"]}).limit(3)
-
-//8.	Which blog posts have the "Thames" tag?
-db.blogs.find({tags: "Thames"}).limit(3)
-
-//9.	Which blog posts have the "Thames" and the "surface" tag?
-db.blogs.find({tags: {$all: ["Thames", "surface"]}}).limit(3)
-
-//10.	Which blog posts have the "Thames" or the "surface" tag?
-db.blogs.find({tags: { $elemMatch: {$in: ["Thames", "surface"]}}}).limit(3)
-// Alternatively
-db.blogs.find({$or: [
-                {tags: "Thames"}, 
-                {tags: "surface"}]}
-        ).limit(3)
-
-//11.	Which blog posts have "twilight" commented on?
-db.blogs.find({"comments.user": "twilight"})
-
-//12. Which comments have "twilight" liked?
-db.blogs.find({comments: {$elemMatch: {likes: {$elemMatch: {$eq: "twilight"}}}}},
-              {comments: {$elemMatch: {likes: {$elemMatch: {$eq: "twilight"}}}}})
-
-//13.	Which blog posts contain "Martians" in the text?
-db.blogs.createIndex({text: "text"})
-db.blogs.find({$text: {$search: "Martians"}}).limit(3)
+//#endregion
