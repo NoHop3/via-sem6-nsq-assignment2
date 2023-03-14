@@ -743,6 +743,7 @@ let booksIds = db.books.insertMany([
     book_pages: 636,
     book_ISBN: "978-3-16-148410-5",
     book_copies: 222,
+    book_sales_count: 0,
   },
   {
     book_name: "Harry Potter and the Order of the Phoenix",
@@ -756,6 +757,7 @@ let booksIds = db.books.insertMany([
     book_pages: 766,
     book_ISBN: "978-3-16-148410-6",
     book_copies: 222,
+    book_sales_count: 0,
   },
   {
     book_name: "Harry Potter and the Half-Blood Prince",
@@ -782,6 +784,7 @@ let booksIds = db.books.insertMany([
     book_pages: 607,
     book_ISBN: "978-3-16-148410-8",
     book_copies: 222,
+    book_sales_count: 0,
   },
   {
     book_name: "The Little Prince",
@@ -795,6 +798,7 @@ let booksIds = db.books.insertMany([
     book_pages: 96,
     book_ISBN: "978-3-16-148410-9",
     book_copies: 222,
+    book_sales_count: 0,
   },
   {
     book_name: "The Alchemist",
@@ -808,6 +812,7 @@ let booksIds = db.books.insertMany([
     book_pages: 197,
     book_ISBN: "978-3-16-148411-2",
     book_copies: 222,
+    book_sales_count: 0,
   }
 ]);
 booksIds = Object.values(booksIds.insertedIds);

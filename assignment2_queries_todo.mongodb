@@ -1,10 +1,4 @@
 //#region Working with data
-const validCustomerId = db.customers.findOne({})._id;
-const validBookId = db.books.findOne({})._id;
-const validAuthorId = db.authors.findOne({})._id;
-const validGenreId = db.genres.findOne({})._id;
-const validCategoryId = db.categories.findOne({})._id;
-const validOrderId = db.orders.findOne({})._id;
 
 //#region Modifying data  
 // 1.	Sell a book to a customer.
@@ -12,31 +6,351 @@ db.orders.insertOne({
     order_date: Date(),
     order_price: 9.99,
     book_quantity: 1,
-    customer_id: ObjectId(validCustomerId),
-    book_id: ObjectId(validBookId),
+    customer_id: ObjectId(db.customers.findOne({})._id),
+    book_id: ObjectId(db.authors.findOne({})._id),
 })
+
 // 2.	Change the address of a customer.
+db.customers.updateOne(
+    { _id: ObjectId(db.customers.findOne({})._id) },
+    { $set: { customer_address: "123 Fake Street" } }
+)
+
 // 3.	Add an existing author to a book.
-// 4.	Retire the "Space Opera" category and assign all books from that category to the parent category. Don't assume you know the id of the parent category.
+db.books.updateOne(
+    { _id: ObjectId(db.books.findOne({})._id) },
+    { $set: { book_author: ObjectId(db.authors.findOne({})._id) } }
+)
+
+// 4.	Remove the "Space Opera" category and assign all books from that category to the parent category. Don't assume you know the id of the parent category.
+
+db.categories.find({
+        subcategories: {
+                $elemMatch: {
+                        subcategory_name: "Space Opera"
+                },
+                $unset: {
+                        subcategories: 1
+                }
+        }
+})
+
+db.books.find({
+        book_category: {
+                $elemMatch: {
+                        subcategory_name: "Space Opera"
+                },
+                $set: {
+                        book_category: ObjectId(db.categories.findOne({})._id)
+                }
+        }
+})
+
+
+
 // 5.	Sell 3 copies of one book and 2 of another in a single order
+db.orders.insertOne({
+    order_date: Date(),
+    order_price: 9.99,
+    book_quantity: 3,
+    customer_id: ObjectId(db.customers.findOne({})._id),
+    book_id: ObjectId(db.authors.findOne({})._id),
+})
+
+db.orders.insertOne({
+    order_date: Date(),
+    order_price: 9.99,
+    book_quantity: 2,
+    customer_id: ObjectId(db.customers.findOne({})._id),
+    book_id: ObjectId(db.authors.findOne({})._id),
+})
+
+// 6.	Change the name of a category.
+db.categories.updateOne(
+    { _id: ObjectId(db.categories.findOne({})._id) },
+    { $set: { category_name: "New Category Name" } }
+)
+
+// 7.	Change the name of a book.
+db.books.updateOne(
+    { _id: ObjectId(db.books.findOne({})._id) },
+    { $set: { book_name: "New Book Name" } }
+)
+
+// 8.	Change the name of an author.
+db.authors.updateOne(
+    { _id: ObjectId(db.authors.findOne({})._id) },
+    { $set: { author_name: "New Author Name" } }
+)
+
+// 9.	Change the name of a customer.
+db.customers.updateOne(
+    { _id: ObjectId(db.customers.findOne({})._id) },
+    { $set: { customer_name: "New Customer Name" } }
+)
+
+// 10.	Change the name of a subcategory.
+db.categories.updateOne(
+    { _id: ObjectId(db.categories.findOne({})._id) },
+    { $set: { subcategories: { subcategory_name: "New Subcategory Name" } } }
+)
+
+// 11.	Remove an author from a book.
+db.books.updateOne(
+    { _id: ObjectId(db.books.findOne({})._id) },
+    { $unset: { book_author: 1 } }
+)
+
+// 12.	Remove a subcategory from a category.
+db.categories.updateOne(
+    { _id: ObjectId(db.categories.findOne({})._id) },
+    { $unset: { subcategories: 1 } }
+)
+
 //#endregion
 
 //#region Querying data
 // Write find() or aggregate() statements to return the following data
 // 1.	All books by an author
+db.books.find({
+        book_author: ObjectId(db.authors.findOne({})._id)
+})
+
 // 2.	Total price of an order
+const randomOrder = db.orders.findOne({})
+db.orders.aggregate([
+        {
+                $match: {
+                        _id: ObjectId(randomOrder._id)
+                }
+        },
+        {
+                $project: {
+                        order_price: 1,
+                        book_quantity: 1,
+                        total_price: {
+                                $multiply: ["$order_price", "$book_quantity"]
+                        }
+                }
+        }
+])
+
 // 3.	Total sales (in £) to a customer
+const randomCustomer = db.customers.findOne({})
+db.orders.aggregate([
+        {
+                $match: {
+                        customer_id: ObjectId(randomCustomer._id)
+                }
+        },
+        {
+                $project: {
+                        order_price: 1,
+                        book_quantity: 1,
+                        total_price: {
+                                $multiply: ["$order_price", "$book_quantity", 1.2]
+                        }
+                }
+        },
+        {
+                $group: {
+                        _id: "$customer_id",
+                        total_sales: {
+                                $sum: "$total_price"
+                        }
+                }
+        }
+])
+
 // 4.	Books that are categorized as neither fiction nor non-fiction
+db.books.find({
+        book_category: {
+                $nin: [
+                        ObjectId(db.categories.findOne({ category_name: "Fiction" })._id),
+                        ObjectId(db.categories.findOne({ category_name: "Non-Fiction" })._id)
+                ]
+        }
+})
+
 // 5.	Average page count by genre
+db.books.aggregate([
+        {
+                $group: {
+                        _id: "$book_category",
+                        average_page_count: {
+                                $avg: "$book_page_count"
+                        }
+                }
+        }
+])
+
 // 6.	Categories that have no sub-categories
+db.categories.find({
+        subcategories: {
+                $size: 0
+        }
+})
+
 // 7.	ISBN numbers of books with more than one author
+db.books.find({
+        book_author: {
+                $size: {
+                        $gt: 1
+                }
+        },
+        { book_isbn: 1 }
+})
+
+
 // 8.	ISBN numbers of books that sold at least X copies (you decide the value for X)
+db.books.find({
+        book_sales_count: {
+                $gte: 10
+        }
+})
+
 // 9.	Number of copies of each book sold – unsold books should show as 0 sold copies.
+db.books.aggregate([
+        {
+                $lookup: {
+                        from: "orders",
+                        localField: "_id",
+                        foreignField: "book_id",
+                        as: "book_orders"
+                }
+        },
+        {
+                $project: {
+                        book_name: 1,
+                        book_sales_count: {
+                                $size: "$book_orders"
+                        }
+                }
+        }
+])
+
 // 10.	Best-selling books: The top 10 selling books ordered in descending order by number of sales.
+db.books.aggregate([
+        {
+                $lookup: {
+                        from: "orders",
+                        localField: "_id",
+                        foreignField: "book_id",
+                        as: "book_orders"
+                }
+        },
+        {
+                $project: {
+                        book_name: 1,
+                        book_sales_count: {
+                                $size: "$book_orders"
+                        }
+                }
+        },
+        {
+                $sort: {
+                        book_sales_count: -1
+                }
+        },
+        {
+                $limit: 10
+        }
+])
+
 // 11.	Best-selling genres: The top 3 selling genres ordered in descending order by number of sales.
+db.books.aggregate([
+        {
+                $lookup: {
+                        from: "orders",
+                        localField: "_id",
+                        foreignField: "book_id",
+                        as: "book_orders"
+                }
+        },
+        {
+                $project: {
+                        book_category: 1,
+                        book_sales_count: {
+                                $size: "$book_orders"
+                        }
+                }
+        },
+        {
+                $group: {
+                        _id: "$book_genre",
+                        total_sales: {
+                                $sum: "$book_sales_count"
+                        }
+                }
+        },
+        {
+                $sort: {
+                        total_sales: -1
+                }
+        },
+        {
+                $limit: 3
+        }
+])
+
 // 12.	All science fiction books. Note: Books in science fiction subcategories like cyberpunk also count as science fiction. Don’t use your knowledge of the concrete category structure. (Hint: $graphLookup)
+db.books.aggregate([
+        {
+                $graphLookup: {
+                        from: "categories",
+                        startWith: "$book_category",
+                        connectFromField: "subcategories",
+                        connectToField: "_id",
+                        as: "book_categories"
+                }
+        },
+        {
+                $match: {
+                        "book_categories.category_name": "Science Fiction"
+                }
+        }
+])
+
 // 13.	Characters used in science fiction books. Note from (12) applies here as well.
+db.books.aggregate([
+        {
+                $graphLookup: {
+                        from: "categories",
+                        startWith: "$book_category",
+                        connectFromField: "character_id",
+                        connectToField: "_id",
+                        as: "book_categories"
+                }
+        },
+        {
+                $match: {
+                        "book_categories.category_name": "Science Fiction"
+                }
+        }
+])
+
 // 14.	For each category: Number of books in the category including books in its subcategories.
+db.categories.aggregate([
+        {
+                $graphLookup: {
+                        from: "categories",
+                        startWith: "$_id",
+                        connectFromField: "subcategories",
+                        connectToField: "_id",
+                        as: "category_subcategories"
+                }
+        },
+        {
+                $project: {
+                        category_name: 1,
+                        category_subcategories: 1,
+                        category_books: {
+                                $size: "$category_subcategories.books"
+                        }
+                }
+        }
+])
+
 //#endregion
 
 //#endregion
