@@ -1,17 +1,19 @@
 //#region Working with data
-const validCustomerId = ObjectId("64075404aefb4493a358f042");
-const validBookId = ObjectId("64075404aefb4493a358f0af");
-const validAuthorId = ObjectId("64075404aefb4493a358f0b0");
-const validGenreId = 
+const validCustomerId = db.customers.findOne({})._id;
+const validBookId = db.books.findOne({})._id;
+const validAuthorId = db.authors.findOne({})._id;
+const validGenreId = db.genres.findOne({})._id;
+const validCategoryId = db.categories.findOne({})._id;
+const validOrderId = db.orders.findOne({})._id;
 
 //#region Modifying data  
 // 1.	Sell a book to a customer.
 db.orders.insertOne({
-    order_date: "2020-12-23",
+    order_date: Date(),
     order_price: 9.99,
     book_quantity: 1,
-    customer_id: JSON.stringify(customersIds[2]),
-    book_id: JSON.stringify(booksIds[10]),
+    customer_id: ObjectId(validCustomerId),
+    book_id: ObjectId(validBookId),
 })
 // 2.	Change the address of a customer.
 // 3.	Add an existing author to a book.
