@@ -275,6 +275,7 @@ db.books.aggregate([
         },
         {
                 $project: {
+                        book_genre: 1,
                         book_category: 1,
                         book_sales_count: {
                                 $size: "$book_orders"
@@ -300,6 +301,28 @@ db.books.aggregate([
 ])
 
 // 12.	All science fiction books. Note: Books in science fiction subcategories like cyberpunk also count as science fiction. Don’t use your knowledge of the concrete category structure. (Hint: $graphLookup)
+// Add a science fiction book
+db.books.insertOne({
+        book_name: "The Martian",
+        book_author: [ObjectId(db.authors.findOne({})._id)],
+        book_ISBN: "978-0-316-23942-9",
+        book_genre: ObjectId(db.genres.findOne({})._id),
+        book_category: ObjectId(db.categories.findOne({category_name: "Science Fiction"})._id),
+        book_pages: 384,
+        book_sales_count: 0
+})
+
+//Add a history book
+db.books.insertOne({
+        book_name: "The History of the World",
+        book_author: [ObjectId(db.authors.findOne({})._id)],
+        book_ISBN: "978-0-316-23942-9",
+        book_genre: ObjectId(db.genres.findOne({})._id),
+        book_category: ObjectId(db.categories.findOne({category_name: "History"})._id),
+        book_pages: 384,
+        book_sales_count: 0
+})
+
 db.books.aggregate([
         {
                 $graphLookup: {
@@ -312,7 +335,10 @@ db.books.aggregate([
         },
         {
                 $match: {
-                        "book_categories.category_name": "Science Fiction"
+                        $or: [
+                                { "book_categories.category_name": "Science Fiction" },
+                                { "book_categories.subcategories.subcategory_name": "Science Fiction"}
+                        ]
                 }
         }
 ])
@@ -330,28 +356,37 @@ db.books.aggregate([
         },
         {
                 $match: {
-                        "book_categories.category_name": "Science Fiction"
-                }
-        }
-])
-
-// 14.	For each category: Number of books in the category including books in its subcategories.
-db.categories.aggregate([
-        {
-                $graphLookup: {
-                        from: "categories",
-                        startWith: "$_id",
-                        connectFromField: "subcategories",
-                        connectToField: "_id",
-                        as: "category_subcategories"
+                        $or: [
+                                { "book_categories.category_name": "Science Fiction" },
+                                { "book_categories.subcategories.subcategory_name": "Science Fiction"}
+                        ]
                 }
         },
         {
                 $project: {
-                        category_name: 1,
-                        category_subcategories: 1,
-                        category_books: {
-                                $size: "$category_subcategories.books"
+                        book_characters: 1
+                }
+        }
+])
+
+// 14.	For each category: Number of books in the category.
+db.books.aggregate([
+        {
+                $graphLookup: {
+                        from: "categories",
+                        startWith: "$book_category",
+                        connectFromField: "subcategories",
+                        connectToField: "_id",
+                        as: "book_categories"
+                }
+        },
+        {
+                $group: {
+                        _id: {
+                                category_name: "$book_categories.category_name",
+                                subcategory_name: "$book_categories.subcategories.subcategory_name"},
+                        book_count: {
+                                $sum: 1
                         }
                 }
         }
