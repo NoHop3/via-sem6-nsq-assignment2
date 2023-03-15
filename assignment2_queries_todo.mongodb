@@ -382,9 +382,7 @@ db.books.aggregate([
         },
         {
                 $group: {
-                        _id: {
-                                category_name: "$book_categories.category_name",
-                                subcategory_name: "$book_categories.subcategories.subcategory_name"},
+                        _id: "$book_categories.category_name",
                         book_count: {
                                 $sum: 1
                         }
