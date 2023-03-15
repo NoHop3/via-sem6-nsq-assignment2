@@ -93,6 +93,15 @@ db.customers.updateOne(
 )
 
 // 10.	Change the name of a the "Space Opera" subcategory to "New Subcategory Name".
+db.categories.updateOne(
+    { _id: ObjectId(db.categories.findOne({})._id) },
+    { $push: { subcategories: { subcategory_name:"Space Opera" } } }
+)
+
+db.categories.updateOne(
+    { _id: ObjectId(db.categories.findOne({})._id), subcategories: { $elemMatch: { subcategory_name: "Space Opera" } } },
+    { $set: { "subcategories.$.subcategory_name": "New Subcategory Name" } }
+)
 
 // 11.	Remove an author from a book.
 db.books.updateOne(
