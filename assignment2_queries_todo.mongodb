@@ -119,17 +119,14 @@ db.categories.updateOne(
 
 //#region Querying data
 // Write find() or aggregate() statements to return the following data
-// 1.	All books by an author
-db.books.find({
-        book_author: ObjectId(db.authors.findOne({})._id)
-})
+// 1.	All books by an author (Stephen King)
+db.books.find({ book_author: ObjectId(db.authors.findOne({author_name: "Stephen King"})._id) })
 
 // 2.	Total price of an order
-const randomOrder = db.orders.findOne({})
 db.orders.aggregate([
         {
                 $match: {
-                        _id: ObjectId(randomOrder._id)
+                        _id: ObjectId(db.orders.findOne({})._id)
                 }
         },
         {
@@ -153,6 +150,7 @@ db.orders.aggregate([
         },
         {
                 $project: {
+                        customer_id: 1,
                         order_price: 1,
                         book_quantity: 1,
                         total_price: {
@@ -162,7 +160,7 @@ db.orders.aggregate([
         },
         {
                 $group: {
-                        _id: "$customer_id",
+                        _id: {customer_id: "$customer_id"},
                         total_sales: {
                                 $sum: "$total_price"
                         }
