@@ -24,28 +24,31 @@ db.books.updateOne(
 
 // 4.	Remove the "Space Opera" category and assign all books from that category to the parent category. Don't assume you know the id of the parent category.
 
-db.categories.find({
-        subcategories: {
-                $elemMatch: {
-                        subcategory_name: "Space Opera"
-                },
-                $unset: {
-                        subcategories: 1
-                }
-        }
-})
+// Make sure we have the Space Opera subcategory somewhere in the data
+db.categories.updateOne(
+    { _id: ObjectId(db.categories.findOne({})._id) },
+    { $push: { subcategories: { subcategory_name:"Space Opera" } } }
+)
 
-db.books.find({
-        book_category: {
-                $elemMatch: {
-                        subcategory_name: "Space Opera"
-                },
-                $set: {
-                        book_category: ObjectId(db.categories.findOne({})._id)
-                }
-        }
-})
+// Find all categories that have Space Opera in the subcategory array, remove it, create a parent category to assign to, then find all books that have a category that matches the category we just removed the subcategory from and assign parent category to them
 
+db.categories.find({ subcategories: { $elemMatch: { subcategory_name: "Space Opera" } } }).forEach(category => {
+    db.categories.updateOne(
+        { _id: ObjectId(category._id) },
+        { $pull: { subcategories: { subcategory_name: "Space Opera" } } },
+    )
+
+    let parentCategoryId = db.categories.insertOne({
+        category_name: "Insert parent category here",
+        character_id: ObjectId(category.character_id),
+        subcategories: category.subcategories.filter(subcategory => subcategory.subcategory_name !== "Space Opera")
+    }).insertedId
+
+    db.books.updateMany(
+        { book_category: ObjectId(category._id) },
+        { $set: { book_category: ObjectId(parentCategoryId) } }
+    )
+})
 
 
 // 5.	Sell 3 copies of one book and 2 of another in a single order
