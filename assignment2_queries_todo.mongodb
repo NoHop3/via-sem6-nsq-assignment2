@@ -178,13 +178,13 @@ db.books.find({
         }
 })
 
-// 5.	Average page count by genre
+// 5.	Average page count by all genres
 db.books.aggregate([
         {
                 $group: {
-                        _id: "$book_category",
+                        _id: "$book_genre",
                         average_page_count: {
-                                $avg: "$book_page_count"
+                                $avg: "$book_pages"
                         }
                 }
         }
@@ -199,20 +199,20 @@ db.categories.find({
 
 // 7.	ISBN numbers of books with more than one author
 db.books.find({
-        book_author: {
-                $size: {
-                        $gt: 1
-                }
-        },
-        { book_isbn: 1 }
+        'book_author.1': {
+                $exists: true
+        }
+}, {
+        book_ISBN: 1
 })
-
 
 // 8.	ISBN numbers of books that sold at least X copies (you decide the value for X)
 db.books.find({
         book_sales_count: {
                 $gte: 10
         }
+}, {
+        book_ISBN: 1
 })
 
 // 9.	Number of copies of each book sold – unsold books should show as 0 sold copies.
