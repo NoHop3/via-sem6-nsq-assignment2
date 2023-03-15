@@ -92,11 +92,7 @@ db.customers.updateOne(
     { $set: { customer_name: "New Customer Name" } }
 )
 
-// 10.	Change the name of a subcategory.
-db.categories.updateOne(
-    { _id: ObjectId(db.categories.findOne({})._id) },
-    { $set: { subcategories: { subcategory_name: "New Subcategory Name" } } }
-)
+// 10.	Change the name of a the "Space Opera" subcategory to "New Subcategory Name".
 
 // 11.	Remove an author from a book.
 db.books.updateOne(
