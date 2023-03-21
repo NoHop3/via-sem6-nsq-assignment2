@@ -1,7 +1,8 @@
 //#region Assignment 2 schema 
 
-// Drop if collection exists
-db.customers.drop();
+// Create a new database and switch to it.
+const database = 'sep6-nsq-assignment2';
+use(database);
 
 db.createCollection("customers", {
    validator:{
@@ -37,9 +38,6 @@ db.createCollection("customers", {
    }
 })
 
-// Drop if collection exists
-db.authors.drop();
-
 db.createCollection("authors", {
    validator: {
       $jsonSchema: {
@@ -57,9 +55,6 @@ db.createCollection("authors", {
       }
    }
 )
-
-// Drop if collection exists
-db.genres.drop();
 
 db.createCollection("genres", {
    validator: {
@@ -80,9 +75,6 @@ db.createCollection("genres", {
    }
 )
 
-// Drop if collection exists
-db.languages.drop();
-
 db.createCollection("languages", {
    validator: {
       $jsonSchema: {
@@ -102,9 +94,6 @@ db.createCollection("languages", {
    }
 )
 
-// Drop if collection exists
-db.characters.drop();
-
 db.createCollection("characters", {
    validator: {
       $jsonSchema: {
@@ -123,9 +112,6 @@ db.createCollection("characters", {
       }
    }
 )
-
-// Drop if collection exists
-db.categories.drop();
 
 db.createCollection("categories", {
    validator: {
@@ -166,9 +152,6 @@ db.createCollection("categories", {
       }
    }
 )
-
-// Drop if collection exists
-db.books.drop();
 
 db.createCollection("books", {
    validator: {
@@ -235,9 +218,6 @@ db.createCollection("books", {
       validationAction: "warn"
    }
 )
-
-// Drop if collection exists
-db.orders.drop();
 
 db.createCollection("orders", {
    validator: {
@@ -904,11 +884,11 @@ db.orders.insertMany([
   },
 ])
 
+session.commitTransaction();
 db.adminCommand(
    { getLog:'global'} ).log.forEach(x => { print(x) }
 )
 
-session.commitTransaction();
 //#endregion
 
 //#region Assignment 2 working with data
